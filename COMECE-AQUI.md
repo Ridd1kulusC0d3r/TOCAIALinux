@@ -21,6 +21,10 @@ Há **quatro jeitos** de rodar a TOCAIA. Comece pelo mais fácil para o seu mome
 | 🐳 **Container/WSL (Alpine)** | usar no dia a dia, no terminal, leve | dezenas de MB | Docker ou WSL |
 | 💿 **ISO (Debian + Xfce)** | a distro completa, bonita, com interface | ~1–1,5 GB | pendrive ou VM |
 
+**Abra no Colab agora (sem instalar nada):**
+- ☁️ Otimizado (terminal + relatórios): https://colab.research.google.com/github/Ridd1kulusC0d3r/TOCAIALinux/blob/main/nuvem/colab/TOCAIA_OSINT_Linux.ipynb
+- 🖥️ Desktop (ver a cara do sistema): https://colab.research.google.com/github/Ridd1kulusC0d3r/TOCAIALinux/blob/main/nuvem/colab/TOCAIA_Colab_Desktop.ipynb
+
 **Sugestão de rota de aprendizado:**
 1. Abra o **Colab** hoje (`nuvem/colab/TOCAIA_OSINT_Linux.ipynb`) — sinta o `trem` e o RELÓGIO.
 2. Depois rode o **container Alpine** — é o Linux de terminal, universal. Aqui você aprende o essencial sem medo de quebrar nada.
