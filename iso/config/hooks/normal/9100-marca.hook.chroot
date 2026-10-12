@@ -1,0 +1,4 @@
+#!/bin/sh
+# Atualiza o cache de ícones para a face da TOCAIA aparecer no menu/painel.
+set -e
+gtk-update-icon-cache -f /usr/share/icons/hicolor 2>/dev/null || true

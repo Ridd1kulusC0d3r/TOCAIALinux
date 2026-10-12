@@ -22,6 +22,17 @@ echo "== 3/4 gerando tema e menu por fases"
 python3 "$RAIZ/tema/gerar_tema.py" "$INC"
 python3 "$RAIZ/iso/gerar_menu.py" "$INC"
 
+# marca fotográfica (onça/face): sobrepõe o wallpaper, instala a face como ícone
+if ! python3 -c "import PIL" 2>/dev/null; then
+  python3 -m pip install --quiet --break-system-packages pillow 2>/dev/null || \
+    apt-get install -y python3-pil 2>/dev/null || true
+fi
+if python3 -c "import PIL" 2>/dev/null; then
+  python3 "$RAIZ/assets/gerar_marca.py" "$INC"
+else
+  echo "   (Pillow indisponível — mantendo o wallpaper vetorial)"
+fi
+
 echo "== 4/4 live-build"
 cd "$RAIZ/iso"
 lb clean --purge >/dev/null 2>&1 || true
