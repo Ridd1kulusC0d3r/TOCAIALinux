@@ -412,8 +412,21 @@ def xfconf_terminal():
   <property name="color-selection-use-default" type="bool" value="false"/>
   <property name="color-palette" type="string" value="{';'.join(paleta_terminal())}"/>
   <property name="misc-menubar-default" type="bool" value="false"/>
-  <property name="misc-default-geometry" type="string" value="110x30"/>
+  <property name="misc-toolbar-default" type="bool" value="false"/>
+  <property name="misc-borders-default" type="bool" value="false"/>
+  <property name="misc-default-geometry" type="string" value="118x32"/>
   <property name="scrolling-bar" type="string" value="TERMINAL_SCROLLBAR_NONE"/>
+  <property name="scrolling-lines" type="uint" value="100000"/>
+  <property name="scrolling-on-output" type="bool" value="false"/>
+  <property name="misc-cursor-shape" type="string" value="TERMINAL_CURSOR_SHAPE_BLOCK"/>
+  <property name="misc-cursor-blinks" type="bool" value="true"/>
+  <property name="color-bold" type="string" value="{T['texto_claro']}"/>
+  <property name="color-bold-use-default" type="bool" value="false"/>
+  <property name="color-bold-is-bright" type="bool" value="true"/>
+  <property name="color-selection" type="string" value="{T['menta_funda']}"/>
+  <property name="color-selection-use-default" type="bool" value="false"/>
+  <property name="title-mode" type="string" value="TERMINAL_TITLE_HIDE"/>
+  <property name="font-allow-bold" type="bool" value="true"/>
 """)
 
 
@@ -450,8 +463,11 @@ def xfconf_painel():
       <property name="position" type="string" value="p=6;x=0;y=0"/>
       <property name="length" type="uint" value="100"/>
       <property name="position-locked" type="bool" value="true"/>
-      <property name="size" type="uint" value="34"/>
-      <property name="icon-size" type="uint" value="18"/>
+      <property name="size" type="uint" value="38"/>
+      <property name="icon-size" type="uint" value="22"/>
+      <property name="nrows" type="uint" value="1"/>
+      <property name="enter-opacity" type="uint" value="100"/>
+      <property name="leave-opacity" type="uint" value="100"/>
       <property name="background-style" type="uint" value="1"/>
       <property name="background-rgba" type="array">
         <value type="double" value="{r:.3f}"/>
@@ -623,6 +639,27 @@ terminal-top: "0"
 
 # ---------------------------------------------------------------- orquestração
 
+def prompt_bash():
+    """Prompt bonito da TOCAIA + cores de ls, só para shell interativo."""
+    # 256-color aproximando a menta/âmbar/coral da paleta
+    return r'''# TOCAIA — visual do shell (gerado por tema/gerar_tema.py)
+case $- in *i*) ;; *) return;; esac
+
+# cores de ls/grep vibrantes
+export CLICOLOR=1
+export LS_COLORS='di=1;38;5;80:ln=38;5;153:ex=1;38;5;215:*.py=38;5;80:*.md=38;5;223:*.json=38;5;180:*.pyz=1;38;5;215'
+alias ls='ls --color=auto --group-directories-first'
+alias ll='ls -lah --color=auto --group-directories-first'
+alias grep='grep --color=auto'
+
+# prompt: ◆ usuário em pasta  (menta/âmbar), com git branch quando houver
+__tocaia_git() { git rev-parse --abbrev-ref HEAD 2>/dev/null | sed 's/.*/ \xee\x82\xa0 &/'; }
+__menta='\[\e[38;2;94;230;196m\]'; __ambar='\[\e[38;2;244;190;63m\]'
+__apag='\[\e[38;2;138;150;147m\]'; __reset='\[\e[0m\]'
+PS1="${__menta}\xe2\x97\x86 ${__ambar}\u${__apag} em ${__menta}\w${__apag}\$(__tocaia_git)\n${__menta}\$ ${__reset}"
+'''
+
+
 def gerar(destino):
     """Escreve tudo sob 'destino' (que vira a raiz /)."""
     destino = Path(destino)
@@ -638,6 +675,7 @@ def gerar(destino):
              "Encoding=UTF-8\n[X-GNOME-Metatheme]\nGtkTheme=TOCAIA\nMetacityTheme=TOCAIA\n"
              "IconTheme=Papirus-Dark\nButtonLayout=O:HMC\n")
     escrever(destino, "etc/skel/.config/gtk-3.0/settings.ini", gtk_settings_ini())
+    escrever(destino, "etc/profile.d/tocaia-visual.sh", prompt_bash())
 
     # xfwm4
     for nome, conteudo in xfwm4_arquivos().items():

@@ -31,6 +31,7 @@ relogio = carregar("relogio", RAIZ / "ferramentas" / "relogio" / "__main__.py")
 silencio = carregar("silencio", RAIZ / "ferramentas" / "silencio" / "__main__.py")
 placar = carregar("placar", RAIZ / "ferramentas" / "placar" / "__main__.py")
 opsec = carregar("opsec", RAIZ / "ferramentas" / "opsec" / "__main__.py")
+mineiro = carregar("mineiro", RAIZ / "ferramentas" / "mineiro" / "__main__.py")
 
 
 class TestCatalogo(unittest.TestCase):
@@ -166,6 +167,25 @@ class TestWargames(unittest.TestCase):
         r = opsec.checar()
         self.assertGreaterEqual(len(r["checklist"]), 5)
         self.assertIn("alertas", r)
+
+
+class TestMineiro(unittest.TestCase):
+    def test_valida_cpf_cnpj(self):
+        self.assertTrue(mineiro.cpf_valido("529.982.247-25"))
+        self.assertFalse(mineiro.cpf_valido("111.111.111-11"))
+        self.assertTrue(mineiro.cnpj_valido("11.222.333/0001-81"))
+        self.assertFalse(mineiro.cnpj_valido("11.222.333/0001-00"))
+
+    def test_extrai_identificadores(self):
+        texto = ("fulano@ex.com, (31) 99876-5432, CPF 529.982.247-25, "
+                 "CEP 30110-013, @zez_mg, https://ex.com.br")
+        tipos = {a["tipo"] for a in mineiro.extrair(texto)}
+        for t in ("email", "telefone", "cpf", "cep", "handle", "url", "pix"):
+            self.assertIn(t, tipos)
+
+    def test_telefone_e164(self):
+        self.assertEqual(mineiro.telefone_br("(31) 99876-5432"), "+5531998765432")
+        self.assertIsNone(mineiro.telefone_br("1234"))
 
 
 class TestTema(unittest.TestCase):

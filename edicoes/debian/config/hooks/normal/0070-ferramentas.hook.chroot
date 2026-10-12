@@ -1,0 +1,20 @@
+#!/bin/sh
+# Pré-instala as ferramentas de terceiro DENTRO da ISO (nativas), numa pasta
+# compartilhada por todos os usuários. As próprias (stdlib .pyz) já são nativas.
+set -e
+
+export TOCAIA_HOME=/opt/tocaia TOCAIA_EDICAO=debian TOCAIA_ETICA=aceito
+export TOCAIA_DADOS=/opt/tocaia/compartilhado
+mkdir -p "$TOCAIA_DADOS"
+
+# todos usam a mesma pasta de venvs (pré-instalados + on-demand)
+echo 'export TOCAIA_DADOS=/opt/tocaia/compartilhado' > /etc/profile.d/tocaia-dados.sh
+
+# ferramentas 'pronta' do tipo pip viram nativas (requer rede no chroot do build)
+for t in sherlock maigret holehe socialscan waybackpy; do
+  echo "== pré-instalando $t"
+  trem instalar "$t" || echo "aviso: $t falhou (segue; fica sob demanda)"
+done
+
+# deixa a pasta compartilhada gravável para o on-demand de qualquer usuário
+chmod -R 1777 "$TOCAIA_DADOS" 2>/dev/null || true

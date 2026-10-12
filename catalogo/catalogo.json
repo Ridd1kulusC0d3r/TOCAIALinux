@@ -393,6 +393,23 @@
         "nuvem"
       ],
       "uso": "trem placar cenario.json alerts.json --relatorio placar.md"
+    },
+    "mineiro": {
+      "fase": "cercar",
+      "tipo": "pyz",
+      "arquivo": "mineiro.pyz",
+      "fonte": "mineiro",
+      "desc": "Mineiro OSINT Extractor: extrai e-mail, telefone, CPF/CNPJ (validados), CEP, URL, IP, @handle e chave PIX de um texto",
+      "origem": "propria",
+      "autor": "DEIVOSINT",
+      "licenca": "MIT",
+      "status": "pronta",
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ],
+      "uso": "mineiro relatorio.txt --json achados.json"
     }
   }
 }
