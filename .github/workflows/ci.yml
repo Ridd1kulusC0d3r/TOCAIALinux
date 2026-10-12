@@ -21,4 +21,5 @@ jobs:
       - run: docker build -f container/Dockerfile -t tocaia:teste .
       - run: docker run --rm tocaia:teste
       - run: docker run --rm tocaia:teste placar /opt/tocaia/wargames/cenarios/rodada1-tropeiro-x-atalaia.json /opt/tocaia/wargames/demo/alerts-demo.json
-      - run: docker images tocaia:teste --format 'tamanho da imagem: {{.Size}}'
+      - run: |
+          docker images tocaia:teste --format 'tamanho da imagem: {{.Size}}'
