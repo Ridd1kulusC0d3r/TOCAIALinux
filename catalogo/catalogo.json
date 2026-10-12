@@ -49,7 +49,11 @@
       "autor": "DEIVOSINT",
       "licenca": "MIT",
       "status": "pronta",
-      "edicoes": ["debian", "alpine", "nuvem"],
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ],
       "uso": "trem relogio casos/demo-bx7/postagens.csv --html relatorio.html"
     },
     "rastro": {
@@ -114,7 +118,11 @@
       "autor": "DEIVOSINT",
       "licenca": "MIT",
       "status": "pronta",
-      "edicoes": ["debian", "alpine", "nuvem"],
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ],
       "uso": "trem manifesto --saida manifesto.json"
     },
     "etica": {
@@ -126,7 +134,11 @@
       "autor": "DEIVOSINT",
       "licenca": "MIT",
       "status": "pronta",
-      "edicoes": ["debian", "alpine", "nuvem"],
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ],
       "uso": "trem etica"
     },
     "sherlock": {
@@ -139,7 +151,11 @@
       "autor": "Sherlock Project",
       "licenca": "MIT",
       "status": "pronta",
-      "edicoes": ["debian", "alpine", "nuvem"],
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ],
       "uso": "trem sherlock fulano123"
     },
     "maigret": {
@@ -152,7 +168,11 @@
       "autor": "soxoj",
       "licenca": "MIT",
       "status": "pronta",
-      "edicoes": ["debian", "alpine", "nuvem"],
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ],
       "uso": "trem maigret fulano123 --html"
     },
     "holehe": {
@@ -165,7 +185,11 @@
       "autor": "megadose",
       "licenca": "GPL-3.0",
       "status": "pronta",
-      "edicoes": ["debian", "alpine", "nuvem"],
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ],
       "uso": "trem holehe alguem@exemplo.com"
     },
     "socialscan": {
@@ -178,7 +202,11 @@
       "autor": "iojw",
       "licenca": "MPL-2.0",
       "status": "pronta",
-      "edicoes": ["debian", "alpine", "nuvem"],
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ],
       "uso": "trem socialscan fulano123"
     },
     "waybackpy": {
@@ -191,7 +219,11 @@
       "autor": "akamhy",
       "licenca": "MIT",
       "status": "pronta",
-      "edicoes": ["debian", "alpine", "nuvem"],
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ],
       "uso": "trem waybackpy --url exemplo.com --oldest"
     },
     "exiftool": {
@@ -205,7 +237,10 @@
       "autor": "Phil Harvey",
       "licenca": "Artistic/GPL",
       "status": "pronta",
-      "edicoes": ["debian", "alpine"],
+      "edicoes": [
+        "debian",
+        "alpine"
+      ],
       "uso": "trem exiftool foto.jpg"
     },
     "mat2": {
@@ -218,7 +253,9 @@
       "autor": "jvoisin",
       "licenca": "LGPL-3.0",
       "status": "pronta",
-      "edicoes": ["debian"],
+      "edicoes": [
+        "debian"
+      ],
       "uso": "trem mat2 relatorio.pdf"
     },
     "whois": {
@@ -232,7 +269,10 @@
       "autor": "Marco d'Itri",
       "licenca": "GPL-2.0",
       "status": "pronta",
-      "edicoes": ["debian", "alpine"],
+      "edicoes": [
+        "debian",
+        "alpine"
+      ],
       "uso": "trem whois exemplo.com.br"
     },
     "dig": {
@@ -246,7 +286,10 @@
       "autor": "ISC",
       "licenca": "MPL-2.0",
       "status": "pronta",
-      "edicoes": ["debian", "alpine"],
+      "edicoes": [
+        "debian",
+        "alpine"
+      ],
       "uso": "trem dig exemplo.com.br MX +short"
     },
     "wayback": {
@@ -257,7 +300,11 @@
       "origem": "terceiro",
       "autor": "Internet Archive",
       "status": "pronta",
-      "edicoes": ["debian", "alpine", "nuvem"]
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ]
     },
     "osintframework": {
       "fase": "observar",
@@ -267,7 +314,11 @@
       "origem": "terceiro",
       "autor": "Justin Nordine",
       "status": "pronta",
-      "edicoes": ["debian", "alpine", "nuvem"]
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ]
     },
     "canarytokens": {
       "fase": "aguardar",
@@ -277,7 +328,11 @@
       "origem": "terceiro",
       "autor": "Thinkst",
       "status": "pronta",
-      "edicoes": ["debian", "alpine", "nuvem"]
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ]
     },
     "vigia": {
       "fase": "aguardar",
@@ -287,6 +342,57 @@
       "autor": "DEIVOSINT",
       "status": "planejada",
       "nota": "próxima ferramenta stdlib (urllib + hashlib + agendamento)"
+    },
+    "opsec": {
+      "fase": "observar",
+      "tipo": "pyz",
+      "arquivo": "opsec.pyz",
+      "fonte": "opsec",
+      "desc": "checklist de OPSEC do analista (checagem local, nada sai da máquina) antes de abrir o navegador",
+      "origem": "propria",
+      "autor": "DEIVOSINT",
+      "licenca": "MIT",
+      "status": "pronta",
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ],
+      "uso": "trem opsec --json"
+    },
+    "silencio": {
+      "fase": "interpretar",
+      "tipo": "pyz",
+      "arquivo": "silencio.pyz",
+      "fonte": "silencio",
+      "desc": "detecção pela ausência: fontes de log que silenciaram além do próprio ritmo (T1070/T1562)",
+      "origem": "propria",
+      "autor": "DEIVOSINT",
+      "licenca": "MIT",
+      "status": "pronta",
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ],
+      "uso": "trem silencio wargames/demo/alerts-demo.json"
+    },
+    "placar": {
+      "fase": "atribuir",
+      "tipo": "pyz",
+      "arquivo": "placar.pyz",
+      "fonte": "placar",
+      "desc": "juiz do war game ataque×defesa sobre o Wazuh: placar por técnica ATT&CK, MTTD e cobertura",
+      "origem": "propria",
+      "autor": "DEIVOSINT",
+      "licenca": "MIT",
+      "status": "pronta",
+      "edicoes": [
+        "debian",
+        "alpine",
+        "nuvem"
+      ],
+      "uso": "trem placar cenario.json alerts.json --relatorio placar.md"
     }
   }
 }

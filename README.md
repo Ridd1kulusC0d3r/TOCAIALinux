@@ -26,8 +26,14 @@ Parrot, nasce em português, e traz **cadeia de custódia do ferramental** embut
 |---|---|---|---|
 | ☁️ **Colab** | testar sem instalar | zero | navegador — [`nuvem/colab`](nuvem/colab/) |
 | ☁️ **Codespaces** | mexer no código | zero | GitHub — [`.devcontainer`](.devcontainer/) |
-| 🐳 **Container / WSL** | uso diário, leve | dezenas de MB | Docker/WSL — [`edicoes/alpine`](edicoes/alpine/) |
-| 💿 **ISO Debian + Xfce** | a distro completa | ~1–1,5 GB | pendrive/VM — [`edicoes/debian`](edicoes/debian/) |
+| 🐳 **Container / WSL** | uso diário, leve (amd64+arm64) | dezenas de MB | Docker/WSL — [`edicoes/alpine`](edicoes/alpine/) |
+| 📱 **Termux** | no celular (Poco X6 Pro, ARM64) | dezenas de MB | Android — [`edicoes/termux`](edicoes/termux/) |
+| 🍓 **Raspberry Pi** | baremetal ARM de verdade | cartão SD | Pi 3/4/5 — [`edicoes/raspberry`](edicoes/raspberry/) |
+| 💿 **ISO Debian + Xfce** | a distro completa (amd64/arm64) | ~1–1,5 GB | pendrive/VM — [`edicoes/debian`](edicoes/debian/) |
+
+> **ARM / Poco X6 Pro:** baremetal no X6 Pro não é viável (SoC sem porte, Mali, verified
+> boot); o caminho real é o **Termux** (nativo). Baremetal ARM de verdade = **Raspberry Pi**.
+> Detalhes em [`docs/ARM.md`](docs/ARM.md).
 
 > **Comece por [`COMECE-AQUI.md`](COMECE-AQUI.md)** e pelo **Manual Ilustrado**
 > ([`docs/manual/index.html`](docs/manual/index.html) — abra no navegador).
@@ -53,6 +59,9 @@ instala cada uma, isolada, só na primeira vez. A base continua leve.
 - **`trem`** — lançador stdlib, catálogo por fase, menu gráfico, `doutor`, ética.
 - **RELÓGIO** — ferramenta própria (fase Traçar): lê horários de postagens públicas e
   revela padrão de vida, fuso, picos e **silêncios**, com relatório HTML e cadeia de custódia.
+- **silencio · placar · opsec + wargames** — frente de detecção: `silencio` (detecção pela
+  ausência, T1070/T1562), `placar` (juiz do war game ataque×defesa sobre o Wazuh, por técnica
+  ATT&CK e MTTD) e `opsec` (checklist local), com o cenário **Tropeiro × Atalaia**.
 - **Tema TOCAIA** — GTK, janelas (xfwm4), terminal, wallpaper e login gerados de um arquivo
   só (`tema/tokens.json`), com a arte da onça na espreita e a face de olhos ciano.
 - **Manifesto** — SHA-256 de cada ferramenta + versões, com ID reproduzível para o laudo.

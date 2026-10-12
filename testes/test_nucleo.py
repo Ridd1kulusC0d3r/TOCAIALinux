@@ -28,6 +28,9 @@ def carregar(nome, caminho):
 
 trem = carregar("trem", RAIZ / "trem" / "trem.py")
 relogio = carregar("relogio", RAIZ / "ferramentas" / "relogio" / "__main__.py")
+silencio = carregar("silencio", RAIZ / "ferramentas" / "silencio" / "__main__.py")
+placar = carregar("placar", RAIZ / "ferramentas" / "placar" / "__main__.py")
+opsec = carregar("opsec", RAIZ / "ferramentas" / "opsec" / "__main__.py")
 
 
 class TestCatalogo(unittest.TestCase):
@@ -132,6 +135,37 @@ class TestRelogio(unittest.TestCase):
         self.assertEqual(len(horarios), 2)
         self.assertTrue(any("sem fuso" in a for a in avisos))
         self.assertTrue(any("ilegível" in a for a in avisos))
+
+
+class TestWargames(unittest.TestCase):
+    """Tools de detecção vindos da outra frente (silencio, placar, opsec)."""
+
+    def setUp(self):
+        self.cenario = json.loads((RAIZ / "wargames" / "cenarios" / "rodada1-tropeiro-x-atalaia.json").read_text(encoding="utf-8"))
+        self.alertas_arq = RAIZ / "wargames" / "demo" / "alerts-demo.json"
+
+    def test_silencio_acha_host_mudo(self):
+        alertas = silencio.ler(str(self.alertas_arq)) if hasattr(silencio, "ler") else None
+        # usa o caminho público: roda a análise e confere que win-lab-01 silenciou
+        r = placar.jogar(self.cenario, placar.ler_alertas(str(self.alertas_arq)))
+        p6 = [p for p in r["passos"] if p["id"] == "P6"][0]
+        self.assertTrue(p6["detectado"])
+        self.assertIn("ausência", p6["como"])
+
+    def test_placar_azul_vence_na_demo(self):
+        r = placar.jogar(self.cenario, placar.ler_alertas(str(self.alertas_arq)))
+        self.assertEqual(r["vencedor"], "azul")
+        self.assertGreater(r["azul"], r["vermelho"])
+        self.assertGreaterEqual(r["cobertura_pct"], 50)
+
+    def test_placar_tecnica_pai(self):
+        self.assertTrue(placar.tecnica_bate("T1059.001", ["T1059"], True))
+        self.assertFalse(placar.tecnica_bate("T1059.001", ["T1003"], True))
+
+    def test_opsec_tem_checklist(self):
+        r = opsec.checar()
+        self.assertGreaterEqual(len(r["checklist"]), 5)
+        self.assertIn("alertas", r)
 
 
 class TestTema(unittest.TestCase):

@@ -35,6 +35,15 @@ jobs:
       - name: Testes unitários
         run: python3 -m unittest discover -s testes -v
 
+      - name: Smoke do wargames (placar na demo)
+        run: |
+          python3 ferramentas/placar/__main__.py \
+            wargames/cenarios/rodada1-tropeiro-x-atalaia.json \
+            wargames/demo/alerts-demo.json | grep -q "Vencedor:" \
+            && echo "placar OK"
+          python3 ferramentas/silencio/__main__.py wargames/demo/alerts-demo.json | grep -q "SILÊNCIO" \
+            && echo "silencio OK"
+
       - name: Sintaxe dos scripts de shell
         run: |
           for f in $(find . -name '*.sh') edicoes/debian/auto/config \

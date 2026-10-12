@@ -1,0 +1,20 @@
+{
+  "nome": "Rodada 1 — Tropeiro (vermelho) x Atalaia (azul)",
+  "descricao": "Intrusão curta em ambiente Windows + Linux, terminando com limpeza de logs. Execute cada passo com o Atomic Red Team no horário anotado e exporte o alerts.json do Wazuh.",
+  "janela_s": 600,
+  "aceitar_tecnica_pai": true,
+  "passos": [
+    {"id": "P1", "nome": "PowerShell ofuscado", "tecnica": "T1059.001", "alvo": "win-lab-01",
+     "quando": "2026-10-12T14:00:00-03:00", "atomic": "T1059.001", "pontos": 10},
+    {"id": "P2", "nome": "Dump da LSASS", "tecnica": "T1003.001", "alvo": "win-lab-01",
+     "quando": "2026-10-12T14:15:00-03:00", "atomic": "T1003.001", "pontos": 20},
+    {"id": "P3", "nome": "Persistência por tarefa agendada", "tecnica": "T1053.005", "alvo": "win-lab-01",
+     "quando": "2026-10-12T14:30:00-03:00", "atomic": "T1053.005", "pontos": 15},
+    {"id": "P4", "nome": "Descoberta de compartilhamentos", "tecnica": "T1135", "alvo": "win-lab-01",
+     "quando": "2026-10-12T14:45:00-03:00", "atomic": "T1135", "pontos": 10},
+    {"id": "P5", "nome": "Conta local nova no Linux", "tecnica": "T1136.001", "alvo": "linux-lab-01",
+     "quando": "2026-10-12T15:00:00-03:00", "atomic": "T1136.001", "pontos": 15},
+    {"id": "P6", "nome": "Limpar log de eventos e parar o agente", "tecnica": "T1070.001", "alvo": "win-lab-01",
+     "quando": "2026-10-12T15:15:00-03:00", "atomic": "T1070.001", "pontos": 25, "deteccao": "ausencia"}
+  ]
+}
