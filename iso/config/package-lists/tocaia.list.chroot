@@ -1,0 +1,44 @@
+# Interface leve: Xfce sem metapacote completo
+xfce4-session
+xfwm4
+xfce4-panel
+xfdesktop4
+xfce4-terminal
+thunar
+xfce4-whiskermenu-plugin
+lightdm
+lightdm-gtk-greeter
+greybird-gtk-theme
+papirus-icon-theme
+librsvg2-common
+
+# Fontes da identidade visual
+fonts-inter
+fonts-jetbrains-mono
+fonts-noto-color-emoji
+
+# Rede e hardware ("universal" também é reconhecer o Wi-Fi)
+network-manager-gnome
+firmware-linux-free
+firmware-iwlwifi
+firmware-realtek
+
+# Base de trabalho OSINT
+firefox-esr
+python3
+python3-venv
+python3-pip
+git
+curl
+jq
+exiftool
+whois
+dnsutils
+torbrowser-launcher
+
+# Live
+live-boot
+live-config
+live-config-systemd
+sudo
+locales

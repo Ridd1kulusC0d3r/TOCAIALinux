@@ -1,0 +1,9 @@
+{
+  "name": "TOCAIA OSINT Linux (Codespaces)",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "postCreateCommand": "python3 build.py && sudo ln -sf $PWD/trem/trem.py /usr/local/bin/trem && sudo chmod +x trem/trem.py && echo '. $PWD/container/tocaia-profile.sh' >> ~/.bashrc",
+  "containerEnv": { "TREM_HOME": "${containerWorkspaceFolder}" },
+  "customizations": {
+    "vscode": { "extensions": ["ms-python.python", "ms-toolsai.jupyter"] }
+  }
+}

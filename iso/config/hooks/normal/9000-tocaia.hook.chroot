@@ -1,0 +1,23 @@
+#!/bin/sh
+# Roda dentro do chroot durante o build da ISO.
+set -e
+
+# trem no PATH e saudação em todo shell
+chmod +x /usr/local/bin/trem
+chmod 644 /etc/profile.d/tocaia.sh
+mkdir -p /opt/tocaia/venvs && chmod 1777 /opt/tocaia/venvs
+
+# Wallpaper da TOCAIA como padrão do Debian/Xfce
+if [ -f /usr/share/backgrounds/tocaia/tocaia.svg ]; then
+  update-alternatives --install /usr/share/images/desktop-base/desktop-background \
+    desktop-background /usr/share/backgrounds/tocaia/tocaia.svg 90
+  update-alternatives --set desktop-background /usr/share/backgrounds/tocaia/tocaia.svg
+fi
+
+# pt-BR por padrão
+sed -i 's/^# *pt_BR.UTF-8/pt_BR.UTF-8/' /etc/locale.gen
+locale-gen
+update-locale LANG=pt_BR.UTF-8
+
+# Menus e ícones atualizados
+update-desktop-database /usr/share/applications 2>/dev/null || true

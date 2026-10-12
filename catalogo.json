@@ -1,0 +1,54 @@
+{
+  "opsec": {
+    "tipo": "pyz", "arquivo": "opsec.pyz", "fase": "Observar",
+    "desc": "checklist de OPSEC do analista + checagem local do ambiente"
+  },
+  "silencio": {
+    "tipo": "pyz", "arquivo": "silencio.pyz", "fase": "Aguardar",
+    "desc": "detecção pela ausência: acha fontes que ficaram quietas demais"
+  },
+  "placar": {
+    "tipo": "pyz", "arquivo": "placar.pyz", "fase": "Interpretar",
+    "desc": "war game ataque x defesa: placar a partir dos alertas do Wazuh"
+  },
+  "manifesto": {
+    "tipo": "pyz", "arquivo": "manifesto.pyz", "fase": "Atribuir",
+    "desc": "cadeia de custódia do ferramental (hash de cada tool usada)"
+  },
+  "maigret": {
+    "tipo": "pip", "pip": "maigret", "comando": "maigret", "fase": "Cercar",
+    "desc": "username em milhares de sites (terceiro, sob demanda)"
+  },
+  "holehe": {
+    "tipo": "pip", "pip": "holehe", "comando": "holehe", "fase": "Cercar",
+    "desc": "em quais serviços um e-mail está cadastrado (terceiro, sob demanda)"
+  },
+  "sherlock": {
+    "tipo": "pip", "pip": "sherlock-project", "comando": "sherlock", "fase": "Cercar",
+    "desc": "username em redes sociais (terceiro, sob demanda)"
+  },
+  "rastro": {
+    "tipo": "planejada", "fase": "Cercar", "origem": "projeto RASTRO",
+    "desc": "arqueologia de username via Internet Archive (DEIVOSINT)"
+  },
+  "sosia": {
+    "tipo": "planejada", "fase": "Aguardar", "origem": "projeto SÓSIA",
+    "desc": "radar de perfis imitadores (DEIVOSINT)"
+  },
+  "prisma": {
+    "tipo": "planejada", "fase": "Interpretar", "origem": "projeto PRISMA",
+    "desc": "runner unificado com grafo de vínculos (DEIVOSINT)"
+  },
+  "vincula": {
+    "tipo": "planejada", "fase": "Interpretar", "origem": "projeto VINCULA",
+    "desc": "mapa de vínculos a partir de reportagens e registros"
+  },
+  "fio": {
+    "tipo": "planejada", "fase": "Cercar", "origem": "F.I.O. Lab 2.1",
+    "desc": "vínculos a partir de telefones e registros públicos BR"
+  },
+  "passeltr": {
+    "tipo": "planejada", "fase": "Atribuir", "origem": "PASSEltr",
+    "desc": "coleta passiva com cadeia de custódia criptográfica"
+  }
+}

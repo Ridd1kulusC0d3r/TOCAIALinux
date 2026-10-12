@@ -1,0 +1,24 @@
+name: testes
+on: [push, pull_request]
+jobs:
+  testes:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.10", "3.13"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "${{ matrix.python }}" }
+      - run: python build.py
+      - run: python -m unittest discover -s testes -v
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f container/Dockerfile -t tocaia:teste .
+      - run: docker run --rm tocaia:teste
+      - run: docker run --rm tocaia:teste placar /opt/tocaia/wargames/cenarios/rodada1-tropeiro-x-atalaia.json /opt/tocaia/wargames/demo/alerts-demo.json
+      - run: docker images tocaia:teste --format 'tamanho da imagem: {{.Size}}'

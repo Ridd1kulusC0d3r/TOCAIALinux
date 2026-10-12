@@ -1,0 +1,14 @@
+{
+  "_nota": "Paleta da TOCAIA extraída visualmente do deck; confirme no arquivo-fonte. Fonte única: o gerar_tema.py usa este arquivo para GTK, terminal e wallpaper.",
+  "fundo": "#0B0F0F",
+  "superficie": "#111817",
+  "borda": "#1F2B29",
+  "texto": "#DCE4E2",
+  "texto_apagado": "#8A9693",
+  "menta": "#5EEAD4",
+  "menta_claro": "#A7F3E0",
+  "menta_escuro": "#3BB89A",
+  "ambar": "#E6B85C",
+  "coral": "#E8836F",
+  "fontes": {"titulo": "Inter", "frase": "Newsreader", "mono": "JetBrains Mono"}
+}

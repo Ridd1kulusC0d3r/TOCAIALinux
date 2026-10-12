@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual TOCAIA Linux</title>
+<style>
+:root{
+  --fundo:#0B0F0F;--sup:#111817;--borda:#1F2B29;--texto:#DCE4E2;--apagado:#8A9693;
+  --menta:#5EEAD4;--menta-e:#3BB89A;--ambar:#E6B85C;--coral:#E8836F;--codigo:#0E1514;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --fundo:#F4F7F6;--sup:#FFFFFF;--borda:#D5DEDB;--texto:#14201E;--apagado:#5A6865;
+  --menta:#0F8F7A;--menta-e:#0B6E5E;--ambar:#9A6B12;--coral:#B4472F;--codigo:#EEF3F1;}}
+:root[data-theme="light"]{--fundo:#F4F7F6;--sup:#FFFFFF;--borda:#D5DEDB;--texto:#14201E;--apagado:#5A6865;
+  --menta:#0F8F7A;--menta-e:#0B6E5E;--ambar:#9A6B12;--coral:#B4472F;--codigo:#EEF3F1;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);font:16px/1.6 Inter,system-ui,sans-serif}
+header{padding:40px 16px 24px;border-bottom:1px solid var(--borda)}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+h1{font-size:clamp(28px,5vw,44px);letter-spacing:.06em;margin:0;
+   background:linear-gradient(90deg,#A7F3E0,#3BB89A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--apagado);font-family:"JetBrains Mono",monospace;letter-spacing:.2em;font-size:12px;text-transform:uppercase}
+nav{position:sticky;top:0;background:var(--fundo);border-bottom:1px solid var(--borda);z-index:5;overflow-x:auto}
+nav .wrap{display:flex;gap:4px;white-space:nowrap;padding-top:8px;padding-bottom:8px}
+nav a{color:var(--apagado);text-decoration:none;padding:6px 10px;border-radius:6px;font-size:14px}
+nav a:hover{color:var(--menta);background:var(--sup)}
+section{scroll-margin-top:56px;padding:40px 0;border-bottom:1px solid var(--borda)}
+h2{font-size:24px;margin:0 0 6px}
+h2 small{display:block;color:var(--apagado);font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:500}
+h3{margin:24px 0 8px;font-size:18px}
+p,li{max-width:72ch}
+code,pre{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:14px}
+code{background:var(--codigo);padding:1px 5px;border-radius:4px}
+pre{background:var(--codigo);border:1px solid var(--borda);border-radius:8px;padding:14px;overflow-x:auto;line-height:1.45}
+.card{background:var(--sup);border:1px solid var(--borda);border-radius:10px;padding:16px 18px;margin:12px 0}
+.aviso{border-left:3px solid var(--ambar)}
+.perigo{border-left:3px solid var(--coral)}
+.abas{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.abas button{background:var(--sup);color:var(--texto);border:1px solid var(--borda);border-radius:999px;padding:6px 14px;cursor:pointer;font:inherit;font-size:14px}
+.abas button[aria-selected="true"]{border-color:var(--menta);color:var(--menta)}
+.painel{display:none}.painel.ativo{display:block}
+ol.passos{counter-reset:p;list-style:none;padding:0}
+ol.passos li{counter-increment:p;position:relative;padding-left:40px;margin:12px 0}
+ol.passos li::before{content:counter(p);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;
+  background:var(--menta-e);color:#0B0F0F;font-weight:700;display:grid;place-items:center;font-size:14px}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:12px 0}
+th,td{border-bottom:1px solid var(--borda);padding:8px;text-align:left;vertical-align:top}
+th{color:var(--apagado);font-weight:600}
+.tabela{overflow-x:auto}
+svg{max-width:100%;height:auto;display:block}
+svg text{font-family:Inter,system-ui,sans-serif;fill:var(--texto)}
+svg .mono,svg .mono text{font-family:"JetBrains Mono",ui-monospace,monospace;white-space:pre}
+svg .apag{fill:var(--apagado)}
+svg .caixa{fill:var(--sup);stroke:var(--borda);stroke-width:1.5}
+svg .forte{stroke:var(--menta);fill:var(--sup);stroke-width:1.5}
+svg .linha{stroke:var(--apagado);stroke-width:1.5;fill:none}
+svg .marca{fill:var(--ambar)} svg .marca-t{fill:#0B0F0F;font-weight:700;font-size:13px}
+.legenda{display:grid;grid-template-columns:28px 1fr;gap:6px 10px;font-size:14px}
+.legenda b{background:var(--ambar);color:#0B0F0F;border-radius:50%;width:22px;height:22px;display:grid;place-items:center;font-size:12px}
+.ok{color:var(--menta)}.falha{color:var(--coral)}.pend{color:var(--ambar)}
+footer{padding:30px 16px;color:var(--apagado);font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="sub">Manual do usuário · versão 1.0 "Tropeiro"</div>
+  <h1>TOCAIA OSINT LINUX</h1>
+  <p>Uma distro de investigação em fontes abertas, leve, que roda em qualquer lugar e organiza as ferramentas pelas fases do método. Este manual foi escrito para quem nunca usou Linux.</p>
+</div></header>
+
+<nav><div class="wrap">
+  <a href="#oque">O que é</a><a href="#instalar">Instalar</a><a href="#funciona">Como funciona</a>
+  <a href="#jornada">Jornada</a><a href="#uso">Uso guiado</a><a href="#wargame">War game</a>
+  <a href="#relatorios">Relatórios</a><a href="#problemas">Problemas</a><a href="#glossario">Glossário</a><a href="#tecnico">Técnico</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="oque">
+  <h2><small>01</small>O que é</h2>
+  <p>A TOCAIA é <b>uma receita só</b> que gera cinco formas de usar a mesma coleção de ferramentas. Você escolhe a que cabe no seu computador.</p>
+  <svg viewBox="0 0 900 300" role="img" aria-label="Uma receita gera ISO, container, WSL, Codespaces e Colab">
+    <rect class="forte" x="20" y="110" width="220" height="80" rx="10"/>
+    <text x="130" y="145" text-anchor="middle" font-weight="700">Repositório</text>
+    <text x="130" y="168" text-anchor="middle" class="apag" font-size="13">trem + catálogo + tools</text>
+    <g font-size="14">
+      <rect class="caixa" x="560" y="10" width="320" height="46" rx="8"/><text x="578" y="39">ISO live — pendrive, interface Xfce</text>
+      <rect class="caixa" x="560" y="68" width="320" height="46" rx="8"/><text x="578" y="97">Container — Docker, dezenas de MB</text>
+      <rect class="caixa" x="560" y="126" width="320" height="46" rx="8"/><text x="578" y="155">WSL — Windows sem máquina virtual</text>
+      <rect class="caixa" x="560" y="184" width="320" height="46" rx="8"/><text x="578" y="213">Codespaces — terminal no navegador</text>
+      <rect class="caixa" x="560" y="242" width="320" height="46" rx="8"/><text x="578" y="271">Colab — notebook grátis do Google</text>
+    </g>
+    <g class="linha"><path d="M240 150 C400 150 400 33 560 33"/><path d="M240 150 C400 150 400 91 560 91"/>
+      <path d="M240 150 H560"/><path d="M240 150 C400 150 400 207 560 207"/><path d="M240 150 C400 150 400 265 560 265"/></g>
+    <text x="300" y="132" text-anchor="middle" class="apag mono" font-size="12">GitHub Actions</text>
+  </svg>
+  <div class="card aviso"><b>Ética primeiro.</b> Fonte aberta, sem invadir, sem enganar, sem assediar. As técnicas de ataque do war game existem só para treinar a defesa, em laboratório isolado.</div>
+</section>
+
+<section id="instalar">
+  <h2><small>02</small>Instalar</h2>
+  <p>Escolha a aba do seu caso. Em todas, o primeiro teste é o mesmo: ver a lista de ferramentas.</p>
+  <div class="abas" role="tablist" data-grupo="inst">
+    <button role="tab" aria-selected="true" data-alvo="win">Windows</button>
+    <button role="tab" aria-selected="false" data-alvo="mac">macOS</button>
+    <button role="tab" aria-selected="false" data-alvo="lin">Linux</button>
+    <button role="tab" aria-selected="false" data-alvo="iso">Pendrive (ISO)</button>
+    <button role="tab" aria-selected="false" data-alvo="nuv">Nuvem grátis</button>
+  </div>
+  <div class="painel ativo" id="win"><ol class="passos">
+    <li>Instale o Python 3 em <code>python.org</code>. Na primeira tela do instalador, marque <b>Add python.exe to PATH</b>.</li>
+    <li>No GitHub do projeto, clique em <b>Code → Download ZIP</b> e extraia a pasta.</li>
+    <li>Dê dois cliques em <code>iniciar.bat</code>. Ele empacota as tools, roda os testes e a demonstração.</li>
+    <li><i>Opcional, distro completa no WSL:</i> com Docker Desktop instalado, rode <code>sh container/exportar-wsl.sh</code> e depois, no PowerShell, <code>wsl --import TOCAIA $env:USERPROFILE\TOCAIA .\tocaia-wsl.tar</code>. Para entrar: <code>wsl -d TOCAIA -u analista</code>.</li>
+  </ol></div>
+  <div class="painel" id="mac"><ol class="passos">
+    <li>Abra o Terminal e confira: <code>python3 --version</code>. Se pedir para instalar ferramentas de desenvolvedor, aceite.</li>
+    <li>Baixe o ZIP do projeto e extraia.</li>
+    <li>Dê dois cliques em <code>iniciar.command</code>. Se o macOS bloquear, clique com o botão direito → <b>Abrir</b>.</li>
+    <li><i>Opcional, container:</i> com Docker Desktop, <code>docker run -it ghcr.io/ridd1kulusc0d3r/tocaialinux</code>.</li>
+  </ol></div>
+  <div class="painel" id="lin"><ol class="passos">
+    <li><code>git clone https://github.com/Ridd1kulusC0d3r/TOCAIALinux.git && cd TOCAIALinux</code></li>
+    <li><code>sh iniciar.sh</code></li>
+    <li>Para ter o <code>trem</code> em qualquer pasta: <code>sudo ln -s $PWD/trem/trem.py /usr/local/bin/trem</code> e <code>export TREM_HOME=$PWD</code> no seu <code>~/.bashrc</code>.</li>
+  </ol></div>
+  <div class="painel" id="iso"><ol class="passos">
+    <li>Baixe <code>tocaia-*.iso</code> e <code>SHA256SUMS</code> na aba <b>Releases</b> do GitHub.</li>
+    <li>Confira a integridade: <code>sha256sum -c SHA256SUMS</code> (no Windows: <code>certutil -hashfile arquivo.iso SHA256</code>).</li>
+    <li>Grave no pendrive com <b>balenaEtcher</b> ou <b>Rufus</b> (modo DD).</li>
+    <li>Reinicie o PC, aperte a tecla do menu de boot (F12, F11, Esc ou F8, varia por fabricante) e escolha o pendrive.</li>
+    <li>Entra direto como <code>analista</code>, em português, fuso de São Paulo. O menu <b>TOCAIA</b> tem as 6 fases.</li>
+  </ol>
+  <div class="card aviso">Quer gerar a ISO você mesmo? Num Debian 13: <code>sudo apt install live-build</code> e <code>sudo sh iso/construir-iso.sh</code>.</div></div>
+  <div class="painel" id="nuv"><ol class="passos">
+    <li><b>Colab:</b> abra <code>nuvem/TOCAIA_Colab.ipynb</code> no GitHub e clique em "Open in Colab" (ou cole o link em colab.research.google.com → GitHub). Aperte o play em cada célula.</li>
+    <li><b>Codespaces:</b> no GitHub, <b>Code → Codespaces → Create</b>. Em um minuto há um terminal com o <code>trem</code> pronto.</li>
+  </ol>
+  <div class="card aviso">Se o repositório estiver privado, o Colab precisa de um token para clonar. Para aulas, deixe-o público.</div></div>
+</section>
+
+<section id="funciona">
+  <h2><small>03</small>Como funciona</h2>
+  <p>Tudo passa pelo <code>trem</code>. Ele lê o catálogo e decide como rodar cada ferramenta.</p>
+  <svg viewBox="0 0 900 330" role="img" aria-label="Arquitetura: catálogo, trem e três tipos de ferramenta">
+    <rect class="caixa" x="20" y="20" width="200" height="70" rx="8"/><text x="120" y="50" text-anchor="middle" font-weight="700">catalogo.json</text>
+    <text x="120" y="72" text-anchor="middle" class="apag" font-size="12">nome · fase · tipo</text>
+    <rect class="forte" x="350" y="20" width="200" height="70" rx="8"/><text x="450" y="50" text-anchor="middle" font-weight="700">trem</text>
+    <text x="450" y="72" text-anchor="middle" class="apag" font-size="12">um arquivo, só stdlib</text>
+    <path class="linha" d="M220 55 H350"/>
+    <rect class="caixa" x="20" y="200" width="250" height="110" rx="8"/>
+    <text x="40" y="228" font-weight="700">pyz — suas tools</text>
+    <text x="40" y="252" class="apag" font-size="13">um arquivo .pyz cada,</text><text x="40" y="272" class="apag" font-size="13">roda em qualquer Python</text>
+    <text x="40" y="294" class="mono" font-size="12">opsec silencio placar manifesto</text>
+    <rect class="caixa" x="325" y="200" width="250" height="110" rx="8"/>
+    <text x="345" y="228" font-weight="700">pip — terceiros</text>
+    <text x="345" y="252" class="apag" font-size="13">instala sozinho na 1ª vez,</text><text x="345" y="272" class="apag" font-size="13">num venv isolado</text>
+    <text x="345" y="294" class="mono" font-size="12">maigret holehe sherlock</text>
+    <rect class="caixa" x="630" y="200" width="250" height="110" rx="8"/>
+    <text x="650" y="228" font-weight="700">planejada</text>
+    <text x="650" y="252" class="apag" font-size="13">aparece no menu, avisa</text><text x="650" y="272" class="apag" font-size="13">que ainda vai ser empacotada</text>
+    <text x="650" y="294" class="mono" font-size="12">rastro sosia prisma fio</text>
+    <path class="linha" d="M450 90 V150 H145 V200 M450 150 V200 M450 150 H755 V200"/>
+    <rect class="caixa" x="650" y="20" width="230" height="70" rx="8"/><text x="765" y="50" text-anchor="middle" font-weight="700">manifesto</text>
+    <text x="765" y="72" text-anchor="middle" class="apag" font-size="12">hash de tudo que rodou</text>
+    <path class="linha" d="M550 55 H650"/>
+  </svg>
+  <h3>Por que é leve</h3>
+  <p>As ferramentas de terceiros não vêm instaladas: só o nome delas está no catálogo. Elas descem da internet na primeira vez que você usa. As suas ferramentas são arquivos únicos de poucos KB.</p>
+</section>
+
+<section id="jornada">
+  <h2><small>04</small>A jornada: o menu pelas fases</h2>
+  <p>Kali e Parrot organizam por tipo de ferramenta. A TOCAIA organiza pelo <b>método</b>: navegando no menu, você aprende a ordem certa de uma investigação.</p>
+  <svg viewBox="0 0 900 190" role="img" aria-label="Seis fases: Traçar, Observar, Cercar, Aguardar, Interpretar, Atribuir">
+    <g font-size="14">
+      <rect class="caixa" x="5" y="30" width="138" height="120" rx="8"/><text x="74" y="58" text-anchor="middle" font-weight="700">1 Traçar</text>
+      <text x="74" y="84" text-anchor="middle" class="apag" font-size="12">pergunta,</text><text x="74" y="102" text-anchor="middle" class="apag" font-size="12">escopo, ética</text>
+      <rect class="caixa" x="155" y="30" width="138" height="120" rx="8"/><text x="224" y="58" text-anchor="middle" font-weight="700">2 Observar</text>
+      <text x="224" y="84" text-anchor="middle" class="apag" font-size="12">coletar com OPSEC</text><text x="224" y="128" text-anchor="middle" class="mono" font-size="12">opsec</text>
+      <rect class="caixa" x="305" y="30" width="138" height="120" rx="8"/><text x="374" y="58" text-anchor="middle" font-weight="700">3 Cercar</text>
+      <text x="374" y="84" text-anchor="middle" class="apag" font-size="12">pivotar IDs</text><text x="374" y="128" text-anchor="middle" class="mono" font-size="12">maigret · rastro</text>
+      <rect class="caixa" x="455" y="30" width="138" height="120" rx="8"/><text x="524" y="58" text-anchor="middle" font-weight="700">4 Aguardar</text>
+      <text x="524" y="84" text-anchor="middle" class="apag" font-size="12">o silêncio é sinal</text><text x="524" y="128" text-anchor="middle" class="mono" font-size="12">silencio · sosia</text>
+      <rect class="caixa" x="605" y="30" width="138" height="120" rx="8"/><text x="674" y="58" text-anchor="middle" font-weight="700">5 Interpretar</text>
+      <text x="674" y="84" text-anchor="middle" class="apag" font-size="12">correlacionar</text><text x="674" y="128" text-anchor="middle" class="mono" font-size="12">placar · prisma</text>
+      <rect class="forte" x="755" y="30" width="138" height="120" rx="8"/><text x="824" y="58" text-anchor="middle" font-weight="700">6 Atribuir</text>
+      <text x="824" y="84" text-anchor="middle" class="apag" font-size="12">concluir e provar</text><text x="824" y="128" text-anchor="middle" class="mono" font-size="12">manifesto</text>
+    </g>
+    <path class="linha" d="M143 90h12M293 90h12M443 90h12M593 90h12M743 90h12"/>
+    <path class="linha" stroke-dasharray="4 4" d="M824 150 V175 H74 V150"/>
+    <text x="450" y="188" text-anchor="middle" class="apag" font-size="12">o que foi aprendido abre a próxima investigação</text>
+  </svg>
+</section>
+
+<section id="uso">
+  <h2><small>05</small>Uso guiado</h2>
+  <p>Esta é a tela real do comando <code>trem</code> (capturada nos testes). Os marcadores explicam cada parte.</p>
+  <svg viewBox="0 0 900 360" role="img" aria-label="Tela do terminal com marcadores numerados">
+    <rect x="0" y="0" width="900" height="360" rx="10" fill="#0B0F0F" stroke="#1F2B29"/>
+    <circle cx="20" cy="18" r="5" fill="#E8836F"/><circle cx="38" cy="18" r="5" fill="#E6B85C"/><circle cx="56" cy="18" r="5" fill="#3BB89A"/>
+    <g class="mono" font-size="14" xml:space="preserve" style="fill:#DCE4E2">
+      <text x="24" y="56" style="fill:#5EEAD4">analista@tocaia:~$ trem</text>
+      <text x="24" y="84" style="fill:#DCE4E2">uai, sô — TOCAIA 1.0.0 "Tropeiro": 4 trens prontos, 9 sob demanda ou planejados</text>
+      <text x="24" y="120" style="fill:#E6B85C">[OBSERVAR] coletar com OPSEC, sem tocar no alvo</text>
+      <text x="24" y="144" style="fill:#DCE4E2">  opsec        pronta       checklist de OPSEC do analista</text>
+      <text x="24" y="180" style="fill:#E6B85C">[CERCAR] pivotar identificadores (username, e-mail, domínio)</text>
+      <text x="24" y="204" style="fill:#DCE4E2">  maigret      sob demanda  username em milhares de sites</text>
+      <text x="24" y="228" style="fill:#DCE4E2">  rastro       planejada    arqueologia de username (DEIVOSINT)</text>
+      <text x="24" y="264" style="fill:#E6B85C">[AGUARDAR] monitorar no tempo; a ausência também é sinal</text>
+      <text x="24" y="288" style="fill:#DCE4E2">  silencio     pronta       detecção pela ausência</text>
+      <text x="24" y="330" style="fill:#8A9693">  ...</text>
+    </g>
+    <g><circle class="marca" cx="268" cy="51" r="12"/><text class="marca-t" x="268" y="56" text-anchor="middle">1</text>
+      <circle class="marca" cx="860" cy="79" r="12"/><text class="marca-t" x="860" y="84" text-anchor="middle">2</text>
+      <circle class="marca" cx="560" cy="115" r="12"/><text class="marca-t" x="560" y="120" text-anchor="middle">3</text>
+      <circle class="marca" cx="640" cy="199" r="12"/><text class="marca-t" x="640" y="204" text-anchor="middle">4</text>
+      <circle class="marca" cx="640" cy="223" r="12"/><text class="marca-t" x="640" y="228" text-anchor="middle">5</text></g>
+  </svg>
+  <div class="legenda" style="margin-top:12px">
+    <b>1</b><span>O comando. Sem nada depois, ele só lista.</span>
+    <b>2</b><span>Resumo: quantas ferramentas já estão prontas para uso.</span>
+    <b>3</b><span>A fase do método. As ferramentas aparecem na ordem da investigação.</span>
+    <b>4</b><span><i>sob demanda</i>: ferramenta de terceiros. Na primeira vez que rodar, ela se instala sozinha (precisa de internet).</span>
+    <b>5</b><span><i>planejada</i>: ferramenta sua que ainda vai ser empacotada. Rodar avisa e não quebra nada.</span>
+  </div>
+  <h3>Primeira investigação, passo a passo</h3>
+  <ol class="passos">
+    <li><code>trem opsec</code> — confira o ambiente e marque o checklist antes de abrir o navegador.</li>
+    <li><code>trem sherlock nome_de_usuario</code> — procure o username nas redes (na 1ª vez instala).</li>
+    <li><code>trem silencio posts.jsonl --fonte perfil --tempo data</code> — veja quais perfis pararam de postar fora do ritmo deles.</li>
+    <li><code>trem manifesto -o manifesto.json</code> — registre as versões exatas das ferramentas que você usou e cite o ID no relatório.</li>
+  </ol>
+</section>
+
+<section id="wargame">
+  <h2><small>06</small>War game: ataque × defesa</h2>
+  <p>O time <b>vermelho (Tropeiro)</b> executa técnicas reais do MITRE ATT&amp;CK num laboratório. O time <b>azul (Atalaia)</b> defende com o Wazuh. O <code>trem placar</code> é o juiz.</p>
+  <svg viewBox="0 0 900 220" role="img" aria-label="Ciclo do war game">
+    <g font-size="14">
+      <rect class="caixa" x="10" y="70" width="160" height="70" rx="8"/><text x="90" y="100" text-anchor="middle" font-weight="700" style="fill:var(--coral)">Vermelho</text><text x="90" y="122" text-anchor="middle" class="apag" font-size="12">Atomic Red Team</text>
+      <rect class="caixa" x="225" y="70" width="160" height="70" rx="8"/><text x="305" y="100" text-anchor="middle" font-weight="700">Wazuh</text><text x="305" y="122" text-anchor="middle" class="apag" font-size="12">alerts.json</text>
+      <rect class="forte" x="440" y="70" width="160" height="70" rx="8"/><text x="520" y="100" text-anchor="middle" font-weight="700">trem placar</text><text x="520" y="122" text-anchor="middle" class="apag" font-size="12">juiz</text>
+      <rect class="caixa" x="655" y="70" width="230" height="70" rx="8"/><text x="770" y="100" text-anchor="middle" font-weight="700">Lacunas</text><text x="770" y="122" text-anchor="middle" class="apag" font-size="12">técnicas que passaram batido</text>
+    </g>
+    <path class="linha" d="M170 105H225M385 105H440M600 105H655"/>
+    <path class="linha" stroke-dasharray="5 4" d="M770 140V190H305V140"/>
+    <text x="540" y="208" text-anchor="middle" font-size="13" style="fill:var(--menta)">Azul escreve a regra que faltava → rejoga → a cobertura sobe</text>
+    <text x="305" y="40" text-anchor="middle" class="apag" font-size="12">cenario.json diz o horário e a técnica de cada passo</text>
+  </svg>
+  <h3>Placar da rodada de demonstração</h3>
+  <div class="tabela"><table>
+    <tr><th>Passo</th><th>Técnica</th><th>Resultado</th><th>MTTD</th><th>Ponto</th></tr>
+    <tr><td>P1 PowerShell ofuscado</td><td>T1059.001</td><td>detectado</td><td>120 s</td><td class="ok">azul +14,0</td></tr>
+    <tr><td>P2 Dump da LSASS</td><td>T1003.001</td><td>detectado</td><td>30 s</td><td class="ok">azul +29,5</td></tr>
+    <tr><td>P3 Tarefa agendada</td><td>T1053.005</td><td>passou despercebido</td><td>—</td><td class="falha">vermelho +15</td></tr>
+    <tr><td>P4 Descoberta de shares</td><td>T1135</td><td>passou despercebido</td><td>—</td><td class="falha">vermelho +10</td></tr>
+    <tr><td>P5 Conta local no Linux</td><td>T1136.001</td><td>detectado</td><td>60 s</td><td class="ok">azul +21,8</td></tr>
+    <tr><td>P6 Limpar logs e parar agente</td><td>T1070.001</td><td><b>pela ausência</b>: o host silenciou</td><td>60 s</td><td class="ok">azul +36,2</td></tr>
+  </table></div>
+  <p><b>Azul 101,5 × Vermelho 25</b>. Cobertura 66,7%, MTTD médio 67,5 s. As lacunas T1053.005 e T1135 são o dever de casa do time azul. Repare no P6: o adversário apagou os logs, e foi justamente o silêncio que o entregou.</p>
+  <p>As regras completas e como subir o laboratório estão em <code>wargames/README.md</code>.</p>
+</section>
+
+<section id="relatorios">
+  <h2><small>07</small>Gerar relatórios</h2>
+  <div class="tabela"><table>
+    <tr><th>Quero</th><th>Comando</th><th>Sai</th></tr>
+    <tr><td>Placar do war game para o time</td><td><code>trem placar cenario.json alerts.json --relatorio placar.md</code></td><td>Markdown com tabela e lacunas</td></tr>
+    <tr><td>Silêncio em formato de dado</td><td><code>trem silencio alerts.json --json &gt; silencio.json</code></td><td>JSON por fonte</td></tr>
+    <tr><td>Prova do ambiente usado</td><td><code>trem manifesto -o manifesto.json</code></td><td>JSON com ID e hashes</td></tr>
+    <tr><td>Conferir se nada mudou</td><td><code>trem manifesto --verificar manifesto.json</code></td><td>OK ou lista do que mudou</td></tr>
+    <tr><td>OPSEC anexado ao caso</td><td><code>trem opsec --json &gt; opsec.json</code></td><td>JSON com checklist</td></tr>
+  </table></div>
+</section>
+
+<section id="problemas">
+  <h2><small>08</small>Solução de problemas</h2>
+  <div class="tabela"><table>
+    <tr><th>Sintoma</th><th>Causa provável</th><th>O que fazer</th></tr>
+    <tr><td><code>falta build</code> na lista</td><td>As tools ainda não foram empacotadas</td><td><code>python3 build.py</code></td></tr>
+    <tr><td><code>não achei o catálogo</code></td><td>O trem não sabe onde está a distro</td><td><code>export TREM_HOME=/caminho/do/projeto</code></td></tr>
+    <tr><td>Windows: "python não é reconhecido"</td><td>Python fora do PATH</td><td>Reinstale marcando "Add to PATH", ou use <code>py -3</code></td></tr>
+    <tr><td>Ferramenta sob demanda falha ao instalar</td><td>Sem internet ou pacote mudou</td><td>Teste a rede; apague <code>venvs/&lt;nome&gt;</code> e rode de novo</td></tr>
+    <tr><td><code>nenhum evento com os campos pedidos</code></td><td>Seu JSON usa outros nomes de campo</td><td>Use <code>--fonte</code> e <code>--tempo</code> com o caminho, ex.: <code>--fonte data.srcuser</code></td></tr>
+    <tr><td>Placar diz que tudo passou batido</td><td>Horário do cenário não bate com a execução, ou nome do host diferente</td><td>Confira <code>quando</code> com fuso e <code>alvo</code> igual ao <code>agent.name</code></td></tr>
+    <tr><td>Pendrive não dá boot</td><td>Secure Boot ou modo de gravação</td><td>Grave em modo DD; se preciso, desative o Secure Boot</td></tr>
+    <tr><td>macOS bloqueia o <code>iniciar.command</code></td><td>Gatekeeper</td><td>Botão direito → Abrir</td></tr>
+  </table></div>
+</section>
+
+<section id="glossario">
+  <h2><small>09</small>Glossário</h2>
+  <div class="tabela"><table>
+    <tr><td><b>OSINT</b></td><td>Inteligência de fontes abertas: informação pública, obtida sem invadir nada.</td></tr>
+    <tr><td><b>OPSEC</b></td><td>Cuidados para que a investigação não exponha o investigador.</td></tr>
+    <tr><td><b>Trem</b></td><td>Cada ferramenta da distro, e também o nome do lançador.</td></tr>
+    <tr><td><b>.pyz</b></td><td>Programa Python empacotado num arquivo só.</td></tr>
+    <tr><td><b>venv</b></td><td>Ambiente isolado onde uma ferramenta de terceiros instala o que precisa sem bagunçar o resto.</td></tr>
+    <tr><td><b>Wazuh</b></td><td>Plataforma aberta de SIEM/XDR: coleta eventos e gera alertas.</td></tr>
+    <tr><td><b>MITRE ATT&amp;CK</b></td><td>Catálogo público de técnicas de ataque, com códigos como T1059.</td></tr>
+    <tr><td><b>Atomic Red Team</b></td><td>Testes pequenos que reproduzem uma técnica de ataque em laboratório.</td></tr>
+    <tr><td><b>MTTD</b></td><td>Tempo médio até detectar.</td></tr>
+    <tr><td><b>Detecção pela ausência</b></td><td>Alertar quando um sinal esperado some: o silêncio vira evidência.</td></tr>
+    <tr><td><b>Cadeia de custódia</b></td><td>Registro que prova o que foi usado, quando, e que nada foi alterado.</td></tr>
+    <tr><td><b>ISO live</b></td><td>Sistema que roda do pendrive sem instalar no computador.</td></tr>
+  </table></div>
+</section>
+
+<section id="tecnico">
+  <h2><small>10</small>Seção técnica e resultado dos testes</h2>
+  <p>Testes automatizados com <code>unittest</code> (stdlib). Comando: <code>python3 -m unittest discover -s testes -v</code>.</p>
+  <div class="tabela"><table>
+    <tr><th>O quê</th><th>Onde foi testado</th><th>Resultado</th></tr>
+    <tr><td>25 testes unitários e de integração (trem, placar, silêncio, manifesto, opsec, menu, tema)</td><td>Linux, Python 3.13 (ambiente de nuvem do Claude)</td><td class="ok">25/25 passaram</td></tr>
+    <tr><td>Instalação sob demanda real (<code>trem sherlock --version</code>)</td><td>idem, com internet</td><td class="ok">instalou e rodou (Sherlock v0.16.2)</td></tr>
+    <tr><td>Lançador de dois cliques <code>iniciar.sh</code></td><td>idem</td><td class="ok">ok, gerou placar.md</td></tr>
+    <tr><td>Sintaxe dos scripts shell (ISO, WSL, laboratório)</td><td>idem (<code>sh -n</code>)</td><td class="ok">ok</td></tr>
+    <tr><td>Matriz Windows / macOS / Linux × Python 3.10 e 3.13</td><td>GitHub Actions (<code>ci.yml</code>)</td><td class="pend">roda a cada push</td></tr>
+    <tr><td>Imagem do container Alpine</td><td>GitHub Actions (<code>ci.yml</code>)</td><td class="pend">roda a cada push</td></tr>
+    <tr><td>ISO live Debian 13 + Xfce</td><td>GitHub Actions (<code>release.yml</code>)</td><td class="pend">roda ao criar uma tag v*</td></tr>
+  </table></div>
+  <div class="card aviso">A imagem do container e a ISO não puderam ser construídas no ambiente de nuvem onde o projeto nasceu: ele não tinha acesso ao Docker Hub nem aos espelhos do Debian. Elas são construídas pelo GitHub Actions. A primeira execução do <code>release.yml</code> é o teste real da lista de pacotes da ISO.</div>
+  <h3>Pontos de extensão</h3>
+  <ul>
+    <li><b>Nova tool:</b> pasta em <code>tools/</code>, entrada no <code>catalogo.json</code>, <code>python3 build.py</code>, teste em <code>testes/</code>.</li>
+    <li><b>Nova cor:</b> edite <code>tema/paleta.json</code>; GTK, terminal, tela de login e wallpaper acompanham.</li>
+    <li><b>Novo cenário:</b> JSON em <code>wargames/cenarios/</code>.</li>
+  </ul>
+</section>
+</main>
+<footer><div class="wrap">TOCAIA OSINT Linux · DEIVOSINT · código MIT · tools de terceiros sob as próprias licenças</div></footer>
+<script>
+document.querySelectorAll('.abas').forEach(function(abas){
+  abas.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    abas.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected','false')});
+    b.setAttribute('aria-selected','true');
+    var sec=abas.parentElement;
+    sec.querySelectorAll('.painel').forEach(function(p){p.classList.toggle('ativo',p.id===b.dataset.alvo)});
+  });
+});
+</script>
+</body>
+</html>

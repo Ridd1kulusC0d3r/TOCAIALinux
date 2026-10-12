@@ -1,0 +1,9 @@
+dist/
+venvs/
+__pycache__/
+*.pyc
+*.tar
+*.iso
+iso/build/
+placar.md
+iso/config/includes.chroot/
