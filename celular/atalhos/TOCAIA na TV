@@ -1,0 +1,3 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# Atalho do Termux:Widget (um toque na tela inicial). Gerado por tocaia_celular.py atalhos.
+exec python "@TOCAIA@/tocaia_celular.py" desktop --tela tv

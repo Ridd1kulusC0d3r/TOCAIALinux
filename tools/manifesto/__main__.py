@@ -4,6 +4,10 @@ Gera um manifesto com o SHA-256 de cada tool empacotada, a versão de cada
 tool instalada sob demanda e o ambiente (SO, Python). O ID do manifesto é o
 hash do próprio conteúdo: cite esse ID no relatório da investigação.
 
+No celular (edição "Matula"), entra também a ficha do APARELHO de coleta:
+modelo, Android, patch de segurança e estado do bootloader/verified boot,
+lidos do `dispositivo.json` que o tocaia_celular.py grava (ou do getprop).
+
     trem manifesto                  gera e imprime o manifesto
     trem manifesto -o man.json      grava em arquivo
     trem manifesto --verificar man.json   confere se o ambiente mudou
@@ -41,6 +45,16 @@ def versoes_pip(pasta_venv):
     return dict(linha.split("==", 1) for linha in saida.splitlines() if "==" in linha)
 
 
+def dispositivo(raiz):
+    """Ficha do aparelho Android, se houver. Fora do celular, devolve {}."""
+    ficha = raiz / "dispositivo.json"
+    if ficha.exists():
+        dados = json.loads(ficha.read_text(encoding="utf-8"))
+        dados.pop("registrado_em", None)  # a hora não muda o ferramental
+        return dados
+    return {}
+
+
 def montar(raiz):
     tools = {}
     dist = raiz / "dist"
@@ -59,6 +73,9 @@ def montar(raiz):
         },
         "tools": tools,
     }
+    aparelho = dispositivo(raiz)
+    if aparelho:
+        corpo["dispositivo"] = aparelho
     canonico = json.dumps(corpo, sort_keys=True, ensure_ascii=False).encode()
     return {
         "id": hashlib.sha256(canonico).hexdigest()[:16],
@@ -73,6 +90,8 @@ def verificar(arquivo, atual):
         print(f"OK: ambiente idêntico ao manifesto {antigo['id']}")
         return 0
     print(f"DIFERENTE: manifesto {antigo['id']} x ambiente atual {atual['id']}")
+    if antigo.get("dispositivo") != atual.get("dispositivo"):
+        print("  - aparelho de coleta: diferente (modelo, sistema, patch ou bootloader)")
     nomes = sorted(set(antigo["tools"]) | set(atual["tools"]))
     for nome in nomes:
         a, b = antigo["tools"].get(nome), atual["tools"].get(nome)

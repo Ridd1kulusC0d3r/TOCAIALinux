@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual TOCAIA Matula</title>
+<style>
+:root{
+  --fundo:#0B0F0F;--sup:#111817;--borda:#1F2B29;--texto:#DCE4E2;--apagado:#8A9693;
+  --menta:#5EEAD4;--menta-e:#3BB89A;--ambar:#E6B85C;--coral:#E8836F;--codigo:#0E1514;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --fundo:#F4F7F6;--sup:#FFFFFF;--borda:#D5DEDB;--texto:#14201E;--apagado:#5A6865;
+  --menta:#0F8F7A;--menta-e:#0B6E5E;--ambar:#9A6B12;--coral:#B4472F;--codigo:#EEF3F1;}}
+:root[data-theme="light"]{--fundo:#F4F7F6;--sup:#FFFFFF;--borda:#D5DEDB;--texto:#14201E;--apagado:#5A6865;
+  --menta:#0F8F7A;--menta-e:#0B6E5E;--ambar:#9A6B12;--coral:#B4472F;--codigo:#EEF3F1;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);font:16px/1.6 Inter,system-ui,sans-serif}
+header{padding:40px 16px 24px;border-bottom:1px solid var(--borda)}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+h1{font-size:clamp(28px,5vw,44px);letter-spacing:.06em;margin:0;
+   background:linear-gradient(90deg,#A7F3E0,#3BB89A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--apagado);font-family:"JetBrains Mono",monospace;letter-spacing:.2em;font-size:12px;text-transform:uppercase}
+nav{position:sticky;top:0;background:var(--fundo);border-bottom:1px solid var(--borda);z-index:5;overflow-x:auto}
+nav .wrap{display:flex;gap:4px;white-space:nowrap;padding-top:8px;padding-bottom:8px}
+nav a{color:var(--apagado);text-decoration:none;padding:6px 10px;border-radius:6px;font-size:14px}
+nav a:hover{color:var(--menta);background:var(--sup)}
+section{scroll-margin-top:56px;padding:40px 0;border-bottom:1px solid var(--borda)}
+h2{font-size:24px;margin:0 0 6px}
+h2 small{display:block;color:var(--apagado);font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:500}
+h3{margin:24px 0 8px;font-size:18px}
+p,li{max-width:72ch}
+code,pre{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:14px}
+code{background:var(--codigo);padding:1px 5px;border-radius:4px}
+pre{background:var(--codigo);border:1px solid var(--borda);border-radius:8px;padding:14px;overflow-x:auto;line-height:1.45}
+.card{background:var(--sup);border:1px solid var(--borda);border-radius:10px;padding:16px 18px;margin:12px 0}
+.aviso{border-left:3px solid var(--ambar)}
+.perigo{border-left:3px solid var(--coral)}
+.abas{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.abas button{background:var(--sup);color:var(--texto);border:1px solid var(--borda);border-radius:999px;padding:6px 14px;cursor:pointer;font:inherit;font-size:14px}
+.abas button[aria-selected="true"]{border-color:var(--menta);color:var(--menta)}
+.painel{display:none}.painel.ativo{display:block}
+ol.passos{counter-reset:p;list-style:none;padding:0}
+ol.passos li{counter-increment:p;position:relative;padding-left:40px;margin:12px 0}
+ol.passos li::before{content:counter(p);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;
+  background:var(--menta-e);color:#0B0F0F;font-weight:700;display:grid;place-items:center;font-size:14px}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:12px 0}
+th,td{border-bottom:1px solid var(--borda);padding:8px;text-align:left;vertical-align:top}
+th{color:var(--apagado);font-weight:600}
+.tabela{overflow-x:auto}
+svg{max-width:100%;height:auto;display:block}
+svg text{font-family:Inter,system-ui,sans-serif;fill:var(--texto)}
+svg .mono,svg .mono text{font-family:"JetBrains Mono",ui-monospace,monospace;white-space:pre}
+svg .apag{fill:var(--apagado)}
+svg .caixa{fill:var(--sup);stroke:var(--borda);stroke-width:1.5}
+svg .forte{stroke:var(--menta);fill:var(--sup);stroke-width:1.5}
+svg .linha{stroke:var(--apagado);stroke-width:1.5;fill:none}
+svg .marca{fill:var(--ambar)} svg .marca-t{fill:#0B0F0F;font-weight:700;font-size:13px}
+.legenda{display:grid;grid-template-columns:28px 1fr;gap:6px 10px;font-size:14px}
+.legenda b{background:var(--ambar);color:#0B0F0F;border-radius:50%;width:22px;height:22px;display:grid;place-items:center;font-size:12px}
+.ok{color:var(--menta)}.falha{color:var(--coral)}.pend{color:var(--ambar)}
+footer{padding:30px 16px;color:var(--apagado);font-size:13px}
+.legenda span b{background:none;color:inherit;width:auto;height:auto;display:inline;border-radius:0;font-size:inherit}
+svg.tela text:not([style]){fill:#DCE4E2}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="sub">Manual do usuário · edição Android · 1.0 "Matula"</div>
+  <h1>TOCAIA NO BOLSO</h1>
+  <p>O "modo DeX" da TOCAIA para o <b>POCO X6 Pro</b> (e quase qualquer Android 10+): o mesmo desktop, o mesmo <code>trem</code> e o mesmo menu pelas fases, rodando no celular, no PC ou na TV. Escrito para quem nunca usou Linux nem Termux.</p>
+</div></header>
+
+<nav><div class="wrap">
+  <a href="#oque">O que é</a><a href="#caminho">Escolha</a><a href="#instalar">Instalar</a><a href="#telas">Telas</a>
+  <a href="#funciona">Como funciona</a><a href="#jornada">Jornada</a><a href="#uso">Uso guiado</a>
+  <a href="#relatorios">Relatórios</a><a href="#problemas">Problemas</a><a href="#glossario">Glossário</a><a href="#tecnico">Técnico</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="oque">
+  <h2><small>01</small>O que é: a engenharia reversa do DeX</h2>
+  <p>O Samsung DeX é fechado e só roda em Samsung. Em vez de copiar o código, a Matula <b>separa o DeX nas 4 peças que ele faz</b> e troca cada uma por uma peça aberta que roda no seu POCO.</p>
+  <svg viewBox="0 0 900 330" role="img" aria-label="As quatro peças do DeX e as peças abertas que as substituem">
+    <text x="150" y="24" text-anchor="middle" class="apag mono" font-size="12">O QUE O DeX FAZ</text>
+    <text x="700" y="24" text-anchor="middle" class="apag mono" font-size="12">PEÇA ABERTA NA MATULA</text>
+    <g font-size="14">
+      <rect class="caixa" x="20" y="40" width="260" height="58" rx="8"/><text x="38" y="66" font-weight="700">Sistema de desktop</text><text x="38" y="86" class="apag" font-size="12">menu, barra, área de trabalho</text>
+      <rect class="caixa" x="20" y="112" width="260" height="58" rx="8"/><text x="38" y="138" font-weight="700">Servidor de janelas</text><text x="38" y="158" class="apag" font-size="12">desenha o desktop numa tela</text>
+      <rect class="caixa" x="20" y="184" width="260" height="58" rx="8"/><text x="38" y="210" font-weight="700">Janelas redimensionáveis</text><text x="38" y="230" class="apag" font-size="12">apps Android soltos</text>
+      <rect class="caixa" x="20" y="256" width="260" height="58" rx="8"/><text x="38" y="282" font-weight="700">Tela grande</text><text x="38" y="302" class="apag" font-size="12">cabo USB-C → monitor</text>
+      <rect class="forte" x="560" y="40" width="320" height="58" rx="8"/><text x="578" y="66" font-weight="700">Debian 13 + Xfce + tema TOCAIA</text><text x="578" y="86" class="apag" font-size="12">trem, tools e menu pelas 6 fases</text>
+      <rect class="forte" x="560" y="112" width="320" height="58" rx="8"/><text x="578" y="138" font-weight="700">Termux:X11</text><text x="578" y="158" class="apag" font-size="12">app Android que mostra o Linux</text>
+      <rect class="forte" x="560" y="184" width="320" height="58" rx="8"/><text x="578" y="210" font-weight="700">Janelas livres do Android</text><text x="578" y="230" class="apag" font-size="12">ligadas pelo tocaia_pc.py preparar</text>
+      <rect class="forte" x="560" y="256" width="320" height="58" rx="8"/><text x="578" y="282" font-weight="700">Celular · PC (scrcpy) · TV (Miracast)</text><text x="578" y="302" class="apag" font-size="12">o X6 Pro não tem vídeo no cabo</text>
+    </g>
+    <path class="linha" d="M280 69H560M280 141H560M280 213H560M280 285H560"/>
+    <text x="420" y="278" text-anchor="middle" font-size="12" style="fill:var(--coral)">sem DisplayPort no USB-C</text>
+  </svg>
+  <div class="card aviso"><b>Por que não tem cabo:</b> a porta USB-C da linha POCO X é USB 2.0, sem saída de vídeo. Adaptador USB-C → HDMI não funciona no X6 Pro. Por isso a Matula usa o próprio celular, o PC ou a TV como tela.</div>
+  <div class="card"><b>A peça que mais lembra o DeX:</b> o scrcpy 3.0+ cria um <b>monitor virtual</b> dentro do Android e mostra só ele numa janela do PC. O desktop TOCAIA vai para esse monitor, e a tela do celular fica livre na sua mão. No scrcpy 4.0+, a janela é redimensionável como qualquer programa de PC.</div>
+</section>
+
+<section id="caminho">
+  <h2><small>02</small>Escolha o seu caminho</h2>
+  <p>São <b>duas modalidades</b> (onde você vê o desktop) e <b>três formas de instalar</b> (quanto você mexe no celular). Qualquer combinação funciona, e todas usam o mesmo Debian instalado.</p>
+  <svg viewBox="0 0 900 300" role="img" aria-label="Mapa de escolha: três formas de instalar por duas modalidades">
+    <g font-size="14">
+      <text x="300" y="30" text-anchor="middle" font-weight="700">A · Tudo no celular</text>
+      <text x="300" y="48" text-anchor="middle" class="apag" font-size="12">tela do POCO + teclado/mouse Bluetooth</text>
+      <text x="680" y="30" text-anchor="middle" font-weight="700">B · Telas externas</text>
+      <text x="680" y="48" text-anchor="middle" class="apag" font-size="12">PC (monitor virtual) ou TV (Miracast)</text>
+      <text x="20" y="100" font-weight="700">1 · Sem root</text><text x="20" y="120" class="apag" font-size="12">proot · nada muda</text>
+      <text x="20" y="180" font-weight="700">2 · Com root</text><text x="20" y="200" class="apag" font-size="12">chroot · mais rápido</text>
+      <text x="20" y="260" font-weight="700">3 · Sistema novo</text><text x="20" y="280" class="apag" font-size="12">ROM + root + Matula</text>
+      <rect class="forte" x="170" y="70" width="260" height="66" rx="8" style="stroke-width:2.5"/><text x="300" y="98" text-anchor="middle" font-weight="700" style="fill:var(--menta)">comece aqui</text><text x="300" y="118" text-anchor="middle" class="apag" font-size="12">botão TOCAIA Desktop</text>
+      <rect class="caixa" x="550" y="70" width="260" height="66" rx="8"/><text x="680" y="98" text-anchor="middle">o "DeX" no PC</text><text x="680" y="118" text-anchor="middle" class="apag" font-size="12">+ TOCAIA-DeX no computador</text>
+      <rect class="caixa" x="170" y="150" width="260" height="66" rx="8"/><text x="300" y="178" text-anchor="middle">mais fluido</text><text x="300" y="198" text-anchor="middle" class="apag" font-size="12">botão TOCAIA Desktop (root)</text>
+      <rect class="caixa" x="550" y="150" width="260" height="66" rx="8"/><text x="680" y="178" text-anchor="middle">estação de trabalho</text><text x="680" y="198" text-anchor="middle" class="apag" font-size="12">chroot + PC ou TV</text>
+      <rect class="caixa" x="170" y="230" width="260" height="66" rx="8"/><text x="300" y="258" text-anchor="middle">celular de campo</text><text x="300" y="278" text-anchor="middle" class="apag" font-size="12">ex.: /e/OS, sem Google</text>
+      <rect class="caixa" x="550" y="230" width="260" height="66" rx="8"/><text x="680" y="258" text-anchor="middle">celular dedicado</text><text x="680" y="278" text-anchor="middle" class="apag" font-size="12">Evolution X ou Lunaris</text>
+    </g>
+  </svg>
+  <div class="tabela"><table>
+    <tr><th></th><th>1 · Sem root</th><th>2 · Com root</th><th>3 · Sistema novo</th></tr>
+    <tr><td>Apaga os dados?</td><td class="ok">não</td><td class="falha">sim, ao desbloquear</td><td class="falha">sim</td></tr>
+    <tr><td>Apps de banco</td><td class="ok">funcionam</td><td class="pend">podem bloquear</td><td class="pend">podem bloquear</td></tr>
+    <tr><td>Garantia</td><td class="ok">intacta</td><td class="pend">em risco</td><td class="pend">em risco</td></tr>
+    <tr><td>Desempenho</td><td>bom</td><td>melhor</td><td>o melhor</td></tr>
+    <tr><td>Tempo para começar</td><td>~40 min</td><td>dias (espera da Xiaomi)</td><td>dias (espera da Xiaomi)</td></tr>
+  </table></div>
+</section>
+
+<section id="instalar">
+  <h2><small>03</small>Instalar</h2>
+  <p>Escolha a aba da forma de instalar. Na dúvida, fique na primeira: dá para passar para as outras depois sem perder nada.</p>
+  <div class="abas" role="tablist">
+    <button role="tab" aria-selected="true" data-alvo="semroot">1 · Sem root</button>
+    <button role="tab" aria-selected="false" data-alvo="comroot">2 · Com root</button>
+    <button role="tab" aria-selected="false" data-alvo="novo">3 · Sistema novo</button>
+  </div>
+  <div class="painel ativo" id="semroot">
+    <ol class="passos">
+      <li>Instale 3 apps <b>fora da Play Store</b> (as da Play estão defasadas): <b>Termux</b> e <b>Termux:Widget</b> pelo F-Droid, e <b>Termux:X11</b> pelo GitHub (<code>termux-x11-universal-debug.apk</code>, tag <i>nightly</i>). O Android vai pedir para permitir "instalar apps desconhecidos": permita só para o navegador que baixou.</li>
+      <li>Conecte no Wi-Fi (vai baixar ~1 a 1,5 GB) e abra o <b>Termux</b>.</li>
+      <li>Cole este comando e aperte Enter:
+        <pre>curl -fsSL https://raw.githubusercontent.com/Ridd1kulusC0d3r/TOCAIALinux/main/celular/instalar.sh | bash</pre></li>
+      <li>Espere terminar (uns 30 a 40 minutos). No fim aparece o <b>doutor</b>, com <code>ok</code> em cada item.</li>
+      <li>Na tela inicial, segure num espaço vazio → <b>Widgets</b> → <b>Termux:Widget</b> e arraste para a tela. Aparecem os botões <b>TOCAIA Desktop</b>, <b>TOCAIA na TV</b>, <b>TOCAIA Parar</b> e <b>TOCAIA Doutor</b>.</li>
+      <li>Em <i>Configurações → Apps → Termux → Economia de bateria</i>, escolha <b>Sem restrições</b>. Assim o Android não fecha o desktop no meio do trabalho.</li>
+    </ol>
+    <div class="card"><b>Quer ver antes o que vai acontecer?</b> Depois de baixar o repositório, rode <code>python ~/TOCAIALinux/celular/tocaia_celular.py instalar --simular</code>. Ele mostra cada passo e não executa nada.</div>
+  </div>
+  <div class="painel" id="comroot">
+    <p>O modo com root usa <b>o mesmo Debian</b> do modo sem root, só que entra por <code>chroot</code>, sem a tradução do proot. Faça primeiro a aba 1.</p>
+    <ol class="passos">
+      <li><b>Desbloqueie o bootloader</b> (só modelo Global): conta Xiaomi com 30+ dias; peça a permissão no app <b>Xiaomi Community</b> com região Global; em <i>Opções do desenvolvedor → Status do Mi Unlock</i>, vincule a conta usando <b>dados móveis</b> com chip físico.</li>
+      <li>Espere o prazo da Xiaomi (em geral 72 h). Nesse período, não troque conta, chip nem resete o celular.</li>
+      <li><b>Faça backup.</b> No PC, use o <b>Mi Unlock</b> com o celular em modo fastboot (volume − e liga). O desbloqueio <b>apaga tudo</b>.</li>
+      <li>Instale o root com <b>Magisk</b> ou <b>KernelSU</b>, corrigindo a imagem de boot do <b>mesmo firmware</b> que está no celular (aparelhos que saíram com Android 13+ costumam usar <code>init_boot.img</code>; confira no pacote).</li>
+      <li>Refaça a aba 1 (o instalador detecta o que já existe) e use o botão <b>TOCAIA Desktop (root)</b>. Na primeira vez, o Magisk/KernelSU pergunta se libera o root para o Termux: libere.</li>
+    </ol>
+    <div class="card perigo"><b>Anti-rollback da Xiaomi:</b> nunca grave pelo fastboot um firmware mais antigo que o atual. Pode travar o aparelho de vez. Use sempre a mesma versão do HyperOS que está instalada.</div>
+    <div class="card aviso">Uma conta Xiaomi desbloqueia <b>1 aparelho por ano</b>. Apps de banco podem recusar celulares desbloqueados.</div>
+  </div>
+  <div class="painel" id="novo">
+    <p>Trocar o HyperOS por outro sistema. A TOCAIA entra como <b>camada por cima</b>: não existe uma "ROM TOCAIA", porque manter um Android inteiro não vale o esforço para o que a distro precisa.</p>
+    <div class="tabela"><table>
+      <tr><th>Sistema</th><th>Situação (out/2026)</th><th>Indicado para</th></tr>
+      <tr><td><b>Evolution X</b></td><td class="ok">builds marcadas como oficiais para o duchamp</td><td>Android limpo e rápido</td></tr>
+      <tr><td><b>Lunaris AOSP</b></td><td class="ok">builds marcadas como oficiais, Android 16</td><td>idem</td></tr>
+      <tr><td><b>/e/OS</b></td><td class="pend">não oficial, mantido por um usuário (até a 4.2, ago/2026)</td><td>OPSEC: sem Google por padrão</td></tr>
+      <tr><td><b>GSI</b> (imagem genérica)</td><td class="pend">sem relato confiável no duchamp</td><td>laboratório</td></tr>
+      <tr><td><b>Linux nativo</b> (postmarketOS, Droidian, Ubuntu Touch)</td><td class="falha">não achei port para o Dimensity 8300</td><td>—</td></tr>
+    </table></div>
+    <ol class="passos">
+      <li>Desbloqueie o bootloader (aba 2, passos 1 a 3).</li>
+      <li>Atualize o HyperOS para a versão de firmware que a ROM escolhida pede.</li>
+      <li>Grave a recovery da ROM pelo fastboot e faça <i>Format data</i>.</li>
+      <li>Instale a ROM pela recovery (<code>adb sideload</code>), seguindo o guia oficial da ROM.</li>
+      <li>Root com Magisk ou KernelSU, depois o Termux e o instalador da aba 1. Use o botão <b>TOCAIA Desktop (root)</b>.</li>
+    </ol>
+    <div class="card"><b>Recomendação:</b> para o celular do dia a dia, Evolution X ou Lunaris (builds oficiais). Para um aparelho <b>só de investigação</b>, o /e/OS conversa melhor com a doutrina (menos telemetria), aceitando o risco de ser não oficial.</div>
+  </div>
+</section>
+
+<section id="telas">
+  <h2><small>04</small>Telas: celular, PC ou TV</h2>
+  <div class="abas" role="tablist">
+    <button role="tab" aria-selected="true" data-alvo="t-cel">A · No celular</button>
+    <button role="tab" aria-selected="false" data-alvo="t-pc">B · No PC</button>
+    <button role="tab" aria-selected="false" data-alvo="t-tv">B · Na TV</button>
+  </div>
+  <div class="painel ativo" id="t-cel">
+    <p>Toque em <b>TOCAIA Desktop</b>. Gire o celular para paisagem.</p>
+    <svg class="tela" viewBox="0 0 900 430" role="img" aria-label="Celular deitado mostrando o desktop TOCAIA com marcadores numerados">
+      <rect x="40" y="20" width="820" height="390" rx="42" fill="#050707" stroke="#1F2B29" stroke-width="3"/>
+      <rect x="80" y="44" width="740" height="342" rx="10" fill="#0B0F0F"/>
+      <rect x="80" y="44" width="740" height="28" fill="#111817"/>
+      <text x="98" y="63" font-size="13" font-weight="700" style="fill:#5EEAD4">◆ TOCAIA</text>
+      <text x="720" y="63" font-size="12" class="mono" style="fill:#8A9693">seg 12 · 16:30</text>
+      <g fill="none" stroke="#5EEAD4"><circle cx="520" cy="230" r="40" stroke-opacity=".5"/><circle cx="520" cy="230" r="80" stroke-opacity=".3"/><circle cx="520" cy="230" r="125" stroke-opacity=".15"/></g>
+      <text x="520" y="350" text-anchor="middle" font-size="26" font-weight="700" letter-spacing="8" style="fill:#5EEAD4">TOCAIA</text>
+      <rect x="92" y="78" width="210" height="196" rx="6" fill="#111817" stroke="#1F2B29"/>
+      <g font-size="12" style="fill:#DCE4E2"><text x="104" y="98">1. Traçar</text><text x="104" y="120">2. Observar</text><text x="104" y="142" style="fill:#5EEAD4">3. Cercar  ›</text><text x="104" y="164">4. Aguardar</text><text x="104" y="186">5. Interpretar</text><text x="104" y="208">6. Atribuir</text></g>
+      <rect x="560" y="96" width="246" height="150" rx="6" fill="#0E1514" stroke="#3BB89A"/>
+      <rect x="560" y="96" width="246" height="22" rx="6" fill="#111817"/><text x="572" y="112" font-size="11" class="mono" style="fill:#8A9693">analista@tocaia: ~</text>
+      <g class="mono" font-size="11" style="fill:#DCE4E2"><text x="572" y="136" style="fill:#5EEAD4">$ trem</text><text x="572" y="154">uai, sô — TOCAIA 1.0.0</text><text x="572" y="170" style="fill:#E6B85C">[OBSERVAR]</text><text x="572" y="186">  opsec  pronta</text><text x="572" y="202" style="fill:#E6B85C">[CERCAR]</text><text x="572" y="218">  maigret sob demanda</text></g>
+      <g><circle class="marca" cx="98" cy="38" r="12"/><text class="marca-t" x="98" y="43" text-anchor="middle">1</text>
+        <circle class="marca" cx="318" cy="142" r="12"/><text class="marca-t" x="318" y="147" text-anchor="middle">2</text>
+        <circle class="marca" cx="820" cy="90" r="12"/><text class="marca-t" x="820" y="95" text-anchor="middle">3</text>
+        <circle class="marca" cx="430" cy="350" r="12"/><text class="marca-t" x="430" y="355" text-anchor="middle">4</text>
+        <circle class="marca" cx="760" cy="38" r="12"/><text class="marca-t" x="760" y="43" text-anchor="middle">5</text></g>
+    </svg>
+    <div class="legenda" style="margin-top:12px">
+      <b>1</b><span>Botão <b>TOCAIA</b>: o menu do Xfce. Toque nele (ou clique, com mouse Bluetooth).</span>
+      <b>2</b><span>As <b>6 fases</b> do método. Cada fase abre as ferramentas dela, na ordem da investigação.</span>
+      <b>3</b><span>Terminal com o <code>trem</code>: o mesmo da ISO e do container.</span>
+      <b>4</b><span>O papel de parede da TOCAIA: é aplicado sozinho em qualquer tela (celular, PC ou TV).</span>
+      <b>5</b><span>Relógio no fuso de São Paulo, já configurado.</span>
+    </div>
+    <h3>Toque, teclado e mouse</h3>
+    <ul>
+      <li>Sem acessórios, o toque funciona como <b>touchpad</b> ou <b>toque direto</b>: escolha o modo em <i>Preferences</i> do app Termux:X11.</li>
+      <li>Com teclado e mouse <b>Bluetooth</b>, o celular vira um mini-PC. É o jeito mais confortável.</li>
+      <li>Para voltar ao Android sem fechar nada, use o gesto de início. O desktop continua rodando; para fechar, toque em <b>TOCAIA Parar</b>.</li>
+    </ul>
+  </div>
+  <div class="painel" id="t-pc">
+    <p><b>Uma vez só:</b> ligue a <i>Depuração USB</i> no celular (Sobre o telefone → toque 7× em <b>Versão do SO</b> → Opções do desenvolvedor; no HyperOS ligue também <i>Depuração USB (Configurações de segurança)</i>). No PC, instale Python 3, <b>adb</b> e <b>scrcpy 3.0+</b>. Conecte o cabo, dois cliques em <code>celular/pc/TOCAIA-DeX</code> e escolha <b>2 · preparar</b>.</p>
+    <p><b>No dia a dia:</b> toque em <b>TOCAIA Desktop</b> no celular, depois dois cliques em <b>TOCAIA-DeX</b> no PC e escolha <b>3 · abrir o desktop TOCAIA no PC</b>.</p>
+    <svg class="tela" viewBox="0 0 900 400" role="img" aria-label="Janela do PC com o desktop TOCAIA num monitor virtual, ao lado do celular livre">
+      <rect x="20" y="20" width="640" height="370" rx="10" fill="#0B0F0F" stroke="#1F2B29" stroke-width="2"/>
+      <rect x="20" y="20" width="640" height="30" rx="10" fill="#111817"/>
+      <text x="340" y="40" text-anchor="middle" font-size="13" style="fill:#DCE4E2">TOCAIA · Matula</text>
+      <circle cx="40" cy="35" r="5" fill="#E8836F"/><circle cx="58" cy="35" r="5" fill="#E6B85C"/><circle cx="76" cy="35" r="5" fill="#3BB89A"/>
+      <rect x="20" y="50" width="640" height="24" fill="#111817"/><text x="34" y="67" font-size="12" font-weight="700" style="fill:#5EEAD4">◆ TOCAIA</text>
+      <g fill="none" stroke="#5EEAD4"><circle cx="420" cy="230" r="45" stroke-opacity=".5"/><circle cx="420" cy="230" r="90" stroke-opacity=".25"/></g>
+      <rect x="44" y="96" width="300" height="180" rx="6" fill="#0E1514" stroke="#3BB89A"/>
+      <g class="mono" font-size="12" style="fill:#DCE4E2"><text x="58" y="122" style="fill:#5EEAD4">$ trem manifesto -o caso.json</text><text x="58" y="144">manifesto 7c1e9a… gravado</text><text x="58" y="166" style="fill:#8A9693">aparelho: duchamp · Android 15</text><text x="58" y="188" style="fill:#8A9693">bootloader travado: 1</text></g>
+      <path d="M620 360 l12 0 l-4 -4 M632 360 l-4 4" stroke="#8A9693" fill="none"/>
+      <rect x="720" y="60" width="150" height="300" rx="22" fill="#050707" stroke="#1F2B29" stroke-width="3"/>
+      <rect x="732" y="80" width="126" height="262" rx="8" fill="#111817"/>
+      <g font-size="11" style="fill:#DCE4E2"><text x="795" y="120" text-anchor="middle">WhatsApp</text><text x="795" y="150" text-anchor="middle">Câmera</text><text x="795" y="180" text-anchor="middle">Mapas</text></g>
+      <text x="795" y="300" text-anchor="middle" font-size="11" style="fill:#8A9693">tela do celular</text><text x="795" y="316" text-anchor="middle" font-size="11" style="fill:#8A9693">continua livre</text>
+      <path class="linha" stroke-dasharray="5 4" d="M720 210 H662"/>
+      <text x="690" y="200" text-anchor="middle" class="mono" font-size="10" style="fill:#8A9693">USB/Wi-Fi</text>
+      <g><circle class="marca" cx="250" cy="35" r="12"/><text class="marca-t" x="250" y="40" text-anchor="middle">1</text>
+        <circle class="marca" cx="358" cy="122" r="12"/><text class="marca-t" x="358" y="127" text-anchor="middle">2</text>
+        <circle class="marca" cx="600" cy="360" r="12"/><text class="marca-t" x="600" y="365" text-anchor="middle">3</text>
+        <circle class="marca" cx="866" cy="70" r="12"/><text class="marca-t" x="866" y="75" text-anchor="middle">4</text></g>
+    </svg>
+    <div class="legenda" style="margin-top:12px">
+      <b>1</b><span>Janela <b>TOCAIA · Matula</b> no PC: é um <b>monitor virtual</b> criado no Android, de 1920×1080. Teclado e mouse do PC funcionam nele.</span>
+      <b>2</b><span>O desktop TOCAIA inteiro, com terminal, Firefox e menu pelas fases.</span>
+      <b>3</b><span>No scrcpy 4.0+, puxe a borda para <b>redimensionar</b> como qualquer programa. No 3.x, o tamanho é fixo (mude com <code>--resolucao</code>).</span>
+      <b>4</b><span>O celular <b>não espelha</b>: você continua usando os apps normalmente.</span>
+    </div>
+    <div class="card"><b>Sem cabo (Android 11+):</b> Opções do desenvolvedor → <i>Depuração sem fio</i> → <i>Parear com código</i>. No PC: <code>python3 tocaia_pc.py parear IP:PORTA CODIGO</code> e depois <code>python3 tocaia_pc.py conectar IP:PORTA</code> (a porta da tela principal da Depuração sem fio).</div>
+    <div class="card aviso"><b>Letras pequenas?</b> Aumente a densidade: <code>python3 tocaia_pc.py dex --dpi 220</code>. Monitor 2K: <code>--resolucao 2560x1440 --dpi 240</code>.</div>
+  </div>
+  <div class="painel" id="t-tv">
+    <ol class="passos">
+      <li>Celular e TV na <b>mesma rede Wi-Fi</b>. Na TV, ative o "Espelhamento de tela" / "Screen Mirroring" (o nome varia).</li>
+      <li>No celular, toque em <b>TOCAIA na TV</b>. O desktop abre e o Android mostra a tela <b>Transmitir</b>.</li>
+      <li>Escolha a TV. Gire o celular para paisagem.</li>
+      <li>Com teclado e mouse Bluetooth no celular, a TV vira o monitor e o celular fica de lado.</li>
+    </ol>
+    <div class="card aviso">A TV precisa aceitar <b>Miracast</b>. Um Chromecast sozinho não recebe Miracast. Na TV é <b>espelhamento</b>: aparece exatamente o que está na tela do celular, com um pequeno atraso. Para trabalhar horas seguidas, o modo PC é mais confortável.</div>
+  </div>
+</section>
+
+<section id="funciona">
+  <h2><small>05</small>Como funciona</h2>
+  <p>O Debian roda dentro do Termux. O Termux:X11 desenha a tela. Os dois conversam por um "soquete" na pasta <code>/tmp</code>, que os dois enxergam.</p>
+  <svg viewBox="0 0 900 380" role="img" aria-label="Arquitetura: Android, Termux, proot ou chroot, Debian, Termux:X11 e as três telas">
+    <rect class="caixa" x="20" y="20" width="860" height="340" rx="12"/>
+    <text x="40" y="46" font-weight="700">Android / HyperOS</text><text x="190" y="46" class="apag" font-size="12">kernel, rede, bateria, permissões</text>
+    <rect class="caixa" x="40" y="66" width="420" height="270" rx="10"/>
+    <text x="60" y="92" font-weight="700">Termux</text><text x="130" y="92" class="apag" font-size="12">app de terminal · tocaia_celular.py</text>
+    <rect class="forte" x="60" y="110" width="180" height="56" rx="8"/><text x="150" y="134" text-anchor="middle" font-weight="700">proot</text><text x="150" y="154" text-anchor="middle" class="apag" font-size="12">sem root</text>
+    <rect class="forte" x="260" y="110" width="180" height="56" rx="8"/><text x="350" y="134" text-anchor="middle" font-weight="700">chroot</text><text x="350" y="154" text-anchor="middle" class="apag" font-size="12">com root</text>
+    <rect class="forte" x="60" y="186" width="380" height="132" rx="8"/>
+    <text x="80" y="212" font-weight="700">Debian 13 (o mesmo para os dois modos)</text>
+    <text x="80" y="238" class="mono" font-size="12">/opt/tocaia   trem · catálogo · tools .pyz</text>
+    <text x="80" y="260" class="mono" font-size="12">Xfce + tema + menu pelas 6 fases</text>
+    <text x="80" y="282" class="mono" font-size="12">dispositivo.json  (ficha do aparelho)</text>
+    <text x="80" y="304" class="mono" font-size="12">usuário analista · pt-BR · America/Sao_Paulo</text>
+    <path class="linha" d="M150 166V186M350 166V186"/>
+    <rect class="caixa" x="520" y="66" width="340" height="80" rx="10"/>
+    <text x="540" y="94" font-weight="700">Termux:X11</text><text x="540" y="116" class="apag" font-size="12">app que mostra a tela :0</text>
+    <text x="540" y="134" class="mono" font-size="11">/tmp/.X11-unix/X0</text>
+    <path class="linha" d="M440 252 H490 V106 H520"/>
+    <text x="496" y="236" class="apag mono" font-size="11">/tmp</text>
+    <g font-size="13">
+      <rect class="caixa" x="520" y="176" width="100" height="56" rx="8"/><text x="570" y="200" text-anchor="middle" font-weight="700">Celular</text><text x="570" y="220" text-anchor="middle" class="apag" font-size="11">tela do POCO</text>
+      <rect class="caixa" x="640" y="176" width="100" height="56" rx="8"/><text x="690" y="200" text-anchor="middle" font-weight="700">PC</text><text x="690" y="220" text-anchor="middle" class="apag" font-size="11">monitor virtual</text>
+      <rect class="caixa" x="760" y="176" width="100" height="56" rx="8"/><text x="810" y="200" text-anchor="middle" font-weight="700">TV</text><text x="810" y="220" text-anchor="middle" class="apag" font-size="11">Miracast</text>
+    </g>
+    <path class="linha" d="M690 146V176M570 160H810M570 160V176M810 160V176"/>
+    <text x="690" y="270" text-anchor="middle" class="apag" font-size="12">PC: scrcpy --new-display --start-app=com.termux.x11</text>
+    <text x="690" y="292" text-anchor="middle" class="apag" font-size="12">TV: am start android.settings.CAST_SETTINGS</text>
+    <text x="690" y="324" text-anchor="middle" font-size="12" style="fill:var(--menta)">uma instalação · três telas</text>
+  </svg>
+  <h3>De onde vem cada peça</h3>
+  <ul>
+    <li><b>Lista de pacotes:</b> a <b>mesma</b> da ISO (<code>iso/config/package-lists/tocaia.list.chroot</code>), sem o que é de pendrive (live-boot, lightdm, firmware) e sem o Tor Browser (não tem versão oficial para ARM). Uma fonte só.</li>
+    <li><b>Tema e menu:</b> os mesmos <code>tema/gerar_tema.py</code> e <code>iso/gerar_menu.py</code> da ISO, gravando dentro do Debian do celular.</li>
+    <li><b>Tools:</b> os mesmos <code>.pyz</code> do <code>build.py</code>. O <code>trem</code> não sabe se está num PC ou num celular.</li>
+  </ul>
+</section>
+
+<section id="jornada">
+  <h2><small>06</small>A jornada de um toque</h2>
+  <svg viewBox="0 0 900 200" role="img" aria-label="Do toque no botão ao manifesto com a ficha do aparelho">
+    <g font-size="13">
+      <rect class="caixa" x="5" y="40" width="130" height="90" rx="8"/><text x="70" y="70" text-anchor="middle" font-weight="700">1 Toque</text><text x="70" y="92" text-anchor="middle" class="apag" font-size="11">TOCAIA Desktop</text><text x="70" y="110" text-anchor="middle" class="apag" font-size="11">(Termux:Widget)</text>
+      <rect class="caixa" x="155" y="40" width="130" height="90" rx="8"/><text x="220" y="70" text-anchor="middle" font-weight="700">2 Ficha</text><text x="220" y="92" text-anchor="middle" class="apag" font-size="11">getprop →</text><text x="220" y="110" text-anchor="middle" class="apag" font-size="11">dispositivo.json</text>
+      <rect class="caixa" x="305" y="40" width="130" height="90" rx="8"/><text x="370" y="70" text-anchor="middle" font-weight="700">3 Tela</text><text x="370" y="92" text-anchor="middle" class="apag" font-size="11">termux-x11 :0</text><text x="370" y="110" text-anchor="middle" class="apag" font-size="11">abre o app</text>
+      <rect class="caixa" x="455" y="40" width="130" height="90" rx="8"/><text x="520" y="70" text-anchor="middle" font-weight="700">4 Debian</text><text x="520" y="92" text-anchor="middle" class="apag" font-size="11">proot ou chroot</text><text x="520" y="110" text-anchor="middle" class="apag" font-size="11">usuário analista</text>
+      <rect class="caixa" x="605" y="40" width="130" height="90" rx="8"/><text x="670" y="70" text-anchor="middle" font-weight="700">5 Xfce</text><text x="670" y="92" text-anchor="middle" class="apag" font-size="11">menu pelas fases</text><text x="670" y="110" text-anchor="middle" class="apag" font-size="11">papel de parede</text>
+      <rect class="forte" x="755" y="40" width="140" height="90" rx="8"/><text x="825" y="70" text-anchor="middle" font-weight="700">6 Investigar</text><text x="825" y="92" text-anchor="middle" class="apag" font-size="11">trem · manifesto</text><text x="825" y="110" text-anchor="middle" class="apag" font-size="11">com o aparelho</text>
+    </g>
+    <path class="linha" d="M135 85h20M285 85h20M435 85h20M585 85h20M735 85h20"/>
+    <text x="450" y="170" text-anchor="middle" class="apag" font-size="12">a ficha é atualizada a cada abertura: se o aparelho mudar, o manifesto acusa</text>
+  </svg>
+</section>
+
+<section id="uso">
+  <h2><small>07</small>Uso guiado</h2>
+  <p>Assim fica o <b>doutor</b> num POCO X6 Pro antes da instalação (montado a partir da saída real do comando, com os dados de exemplo dos testes). Os marcadores explicam cada parte.</p>
+  <svg class="tela" viewBox="0 0 900 330" role="img" aria-label="Saída do comando doutor com marcadores numerados">
+    <rect x="0" y="0" width="900" height="330" rx="10" fill="#0B0F0F" stroke="#1F2B29"/>
+    <g class="mono" font-size="14" style="fill:#DCE4E2">
+      <text x="24" y="36" style="fill:#5EEAD4">~ $ python TOCAIALinux/celular/tocaia_celular.py doutor</text>
+      <text x="24" y="66">TOCAIA 1.0.0 "Matula" — doutor · aparelho: 2311DRK48G (duchamp)</text>
+      <text x="24" y="98" style="fill:#5EEAD4">  ok  dentro do Termux</text>
+      <text x="24" y="120" style="fill:#5EEAD4">  ok  processador ARM 64 bits</text>
+      <text x="24" y="142" style="fill:#5EEAD4">  ok  Android 10 ou mais novo</text>
+      <text x="24" y="164" style="fill:#5EEAD4">  ok  3 GB livres ou mais</text>
+      <text x="24" y="186" style="fill:#E6B85C">  --  Termux:X11 (pacote)          rode: instalar</text>
+      <text x="24" y="208" style="fill:#E6B85C">  --  proot-distro                 rode: instalar</text>
+      <text x="24" y="230" style="fill:#E6B85C">  --  Debian instalado             rode: instalar</text>
+      <text x="24" y="252" style="fill:#E6B85C">  --  TOCAIA dentro do Debian      rode: instalar</text>
+      <text x="24" y="274" style="fill:#8A9693">  --  root (opcional)              sem root: use o modo proot</text>
+      <text x="24" y="308" style="fill:#8A9693">Dica: se o desktop fechar sozinho, rode no PC `tocaia_pc.py preparar`</text>
+    </g>
+    <g><circle class="marca" cx="760" cy="61" r="12"/><text class="marca-t" x="760" y="66" text-anchor="middle">1</text>
+      <circle class="marca" cx="340" cy="131" r="12"/><text class="marca-t" x="340" y="136" text-anchor="middle">2</text>
+      <circle class="marca" cx="560" cy="219" r="12"/><text class="marca-t" x="560" y="224" text-anchor="middle">3</text>
+      <circle class="marca" cx="660" cy="269" r="12"/><text class="marca-t" x="660" y="274" text-anchor="middle">4</text></g>
+  </svg>
+  <div class="legenda" style="margin-top:12px">
+    <b>1</b><span>O aparelho que o doutor reconheceu (modelo e codinome). <code>duchamp</code> é o POCO X6 Pro.</span>
+    <b>2</b><span>Requisitos do celular. Se algum ficar com <code>--</code>, a dica do lado diz o que fazer.</span>
+    <b>3</b><span>O que o instalador ainda vai colocar. Depois do <code>instalar</code>, tudo vira <code>ok</code>.</span>
+    <b>4</b><span>Root é <b>opcional</b>. Sem ele, a Matula usa o modo proot.</span>
+  </div>
+  <h3>Primeira investigação no celular</h3>
+  <ol class="passos">
+    <li>Toque em <b>TOCAIA Desktop</b> e abra o terminal pelo menu <b>TOCAIA → 2. Observar</b>.</li>
+    <li><code>trem opsec</code> — confira o ambiente. No celular, lembre que ele também é um sensor: use contas separadas das suas pessoais.</li>
+    <li><code>trem sherlock nome_de_usuario</code> — procure o username (na 1ª vez instala; precisa de internet).</li>
+    <li><code>trem placar /opt/tocaia/wargames/cenarios/rodada1-tropeiro-x-atalaia.json /opt/tocaia/wargames/demo/alerts-demo.json</code> — o caso de demonstração do war game, para testar sem internet.</li>
+    <li><code>trem manifesto -o /sdcard/Download/manifesto.json</code> — registre as ferramentas <b>e o aparelho</b>. O arquivo aparece na pasta Downloads do Android.</li>
+  </ol>
+</section>
+
+<section id="relatorios">
+  <h2><small>08</small>Relatórios e a ficha do aparelho</h2>
+  <p>Na Matula, o manifesto ganha um bloco novo: o <b>aparelho de coleta</b>. Isso é uma inovação de cadeia de custódia: numa perícia, a integridade do celular usado na coleta pode ser questionada. Bootloader destravado ou patch de segurança antigo são fatos que precisam estar no laudo, e não uma surpresa na audiência.</p>
+<pre>"dispositivo": {
+  "fabricante": "Xiaomi",
+  "nome_comercial": "POCO X6 Pro 5G",
+  "codinome": "duchamp",
+  "android": "15",
+  "build": "OS2.0.6.0.VNLMIXM",
+  "patch_seguranca": "2026-08-01",
+  "verified_boot": "green",
+  "bootloader_travado": "1",
+  "abi": "arm64-v8a"
+}</pre>
+  <p style="color:var(--apagado)">Valores de exemplo, dos testes automatizados.</p>
+  <div class="tabela"><table>
+    <tr><th>Quero</th><th>Comando</th><th>Sai</th></tr>
+    <tr><td>Prova do ambiente + aparelho</td><td><code>trem manifesto -o /sdcard/Download/manifesto.json</code></td><td>JSON com ID, hashes e ficha do aparelho</td></tr>
+    <tr><td>Conferir se algo mudou</td><td><code>trem manifesto --verificar manifesto.json</code></td><td>OK, ou "aparelho de coleta: diferente"</td></tr>
+    <tr><td>Atualizar só a ficha</td><td><code>python tocaia_celular.py dispositivo</code> (no Termux)</td><td><code>/opt/tocaia/dispositivo.json</code></td></tr>
+    <tr><td>Placar do war game</td><td><code>trem placar cenario.json alerts.json --relatorio /sdcard/Download/placar.md</code></td><td>Markdown</td></tr>
+  </table></div>
+  <div class="card">A hora do registro <b>não</b> muda o ID do manifesto. Destravar o bootloader, trocar de ROM ou atualizar o patch <b>muda</b>. Assim o ID só mexe quando algo relevante para a prova mexeu.</div>
+</section>
+
+<section id="problemas">
+  <h2><small>09</small>Solução de problemas</h2>
+  <div class="tabela"><table>
+    <tr><th>Sintoma</th><th>Causa provável</th><th>O que fazer</th></tr>
+    <tr><td>O desktop fecha sozinho depois de uns minutos</td><td>Android 12+ mata processos filhos</td><td>No PC, uma vez: <code>tocaia_pc.py preparar</code>. E Termux sem restrição de bateria.</td></tr>
+    <tr><td>Tela preta só com o cursor</td><td>modo de desenho</td><td><code>tocaia_celular.py desktop --legacy</code></td></tr>
+    <tr><td>Cores trocadas (azul vira laranja)</td><td>formato de cor</td><td><code>tocaia_celular.py desktop --bgra</code></td></tr>
+    <tr><td>Modo root sem internet dentro do Debian</td><td>grupo de rede do Android</td><td>No Debian: <code>sudo bash /opt/tocaia/tocaia-setup.sh analista</code></td></tr>
+    <tr><td>PC: abre o celular inteiro, não o desktop</td><td>scrcpy antigo</td><td>Atualize para 3.0+. Confira com <code>tocaia_pc.py checar</code>.</td></tr>
+    <tr><td>PC: janela preta</td><td>desktop não estava aberto</td><td>Toque em <b>TOCAIA Desktop</b> antes do <b>TOCAIA-DeX</b>.</td></tr>
+    <tr><td><code>unauthorized</code> no <code>checar</code></td><td>chave do PC não aceita</td><td>Desbloqueie o celular e aceite "Permitir depuração USB".</td></tr>
+    <tr><td>HyperOS: "preparar" dá erro de permissão</td><td>falta a opção de segurança</td><td>Ligue <i>Depuração USB (Configurações de segurança)</i> (pede chip e conta Xiaomi).</td></tr>
+    <tr><td>A TV não aparece em Transmitir</td><td>TV sem Miracast ou rede diferente</td><td>Mesma rede; confirme se a TV aceita espelhamento Miracast.</td></tr>
+    <tr><td>Pouco espaço</td><td>Debian + Firefox ~1,5 GB</td><td><code>proot-distro login debian -- apt-get clean</code></td></tr>
+    <tr><td>Botões não aparecem nos widgets</td><td>Termux:Widget de outra origem</td><td>Termux e Termux:Widget têm de vir da mesma loja (ambos F-Droid ou ambos GitHub).</td></tr>
+  </table></div>
+  <p>Diagnóstico rápido: botão <b>TOCAIA Doutor</b> no celular e <code>python3 tocaia_pc.py checar</code> no PC.</p>
+</section>
+
+<section id="glossario">
+  <h2><small>10</small>Glossário</h2>
+  <div class="tabela"><table>
+    <tr><td><b>DeX</b></td><td>Modo desktop dos celulares Samsung. Aqui, o nome do que estamos recriando.</td></tr>
+    <tr><td><b>Termux</b></td><td>App que dá um terminal Linux no Android, sem root.</td></tr>
+    <tr><td><b>Termux:X11</b></td><td>App que mostra programas gráficos do Linux (o desktop) numa tela do Android.</td></tr>
+    <tr><td><b>Termux:Widget</b></td><td>App que cria botões na tela inicial que rodam comandos do Termux.</td></tr>
+    <tr><td><b>proot</b></td><td>Jeito de rodar um Linux dentro de uma pasta sem precisar de root. Um pouco mais lento.</td></tr>
+    <tr><td><b>chroot</b></td><td>O mesmo, mas direto pelo sistema. Mais rápido; exige root.</td></tr>
+    <tr><td><b>Root</b></td><td>Acesso de administrador ao Android. Exige bootloader desbloqueado.</td></tr>
+    <tr><td><b>Bootloader</b></td><td>Programa que liga o celular e confere se o sistema é o original. "Desbloquear" permite trocar o sistema.</td></tr>
+    <tr><td><b>ROM</b></td><td>Um sistema Android alternativo ao de fábrica (ex.: Evolution X).</td></tr>
+    <tr><td><b>GSI</b></td><td>Imagem genérica de Android que, em tese, roda em vários aparelhos.</td></tr>
+    <tr><td><b>adb</b></td><td>Ferramenta do PC que conversa com o Android pelo cabo ou Wi-Fi.</td></tr>
+    <tr><td><b>scrcpy</b></td><td>Programa livre que mostra e controla o Android no PC. A partir da 3.0, cria monitores virtuais.</td></tr>
+    <tr><td><b>Monitor virtual</b></td><td>Uma tela que só existe no software. O Android desenha nela como se fosse um monitor de verdade.</td></tr>
+    <tr><td><b>Miracast</b></td><td>Padrão de espelhamento de tela sem fio para TVs.</td></tr>
+    <tr><td><b>Janelas livres (freeform)</b></td><td>Apps do Android em janelas soltas e redimensionáveis, como num PC.</td></tr>
+    <tr><td><b>getprop</b></td><td>Comando do Android que lista as propriedades do aparelho (modelo, versão, estado do boot).</td></tr>
+    <tr><td><b>Verified Boot</b></td><td>Verificação do Android de que o sistema não foi alterado. <code>green</code> = original e travado.</td></tr>
+    <tr><td><b>Anti-rollback</b></td><td>Proteção da Xiaomi contra voltar para firmware mais antigo. Desrespeitar pode inutilizar o aparelho.</td></tr>
+    <tr><td><b>Matula</b></td><td>A sacola de comida do tropeiro na viagem. O codinome da TOCAIA de bolso.</td></tr>
+  </table></div>
+</section>
+
+<section id="tecnico">
+  <h2><small>11</small>Seção técnica e resultado dos testes</h2>
+  <p>Testes automatizados com <code>unittest</code> (stdlib): <code>python3 -m unittest discover -s testes -v</code>. A edição Android tem a própria suíte, <code>testes/test_celular.py</code>.</p>
+  <div class="tabela"><table>
+    <tr><th>O quê</th><th>Onde foi testado</th><th>Resultado</th></tr>
+    <tr><td>25 testes da edição Android (pacotes, planos proot/chroot/TV, simulação, ficha do aparelho, manifesto, Debian simulado com o trem rodando, atalhos, sintaxe dos scripts, scrcpy e adb)</td><td>Linux, Python 3.13 (nuvem do Claude)</td><td class="ok">25/25 passaram</td></tr>
+    <tr><td>Suíte completa da TOCAIA (os 25 testes de antes + os 25 novos)</td><td>idem</td><td class="ok">50/50 passaram</td></tr>
+    <tr><td><code>tocaia-setup.sh</code> rodado de verdade (usuário, grupos de rede 3003/3004, sudo, fuso, idempotência)</td><td>Ubuntu 24.04 (parente do Debian)</td><td class="ok">ok, duas execuções seguidas</td></tr>
+    <tr><td>Sintaxe dos scripts (instalar, chroot, setup, atalhos, lançadores)</td><td>idem (<code>sh -n</code>/<code>bash -n</code>)</td><td class="ok">ok</td></tr>
+    <tr><td>Este manual (desktop 1200 px e celular 390 px)</td><td>Chromium headless</td><td class="ok">sem erro de JS, sem rolagem lateral, abas ok</td></tr>
+    <tr><td>Instalação real no POCO X6 Pro (Termux, proot-distro, Termux:X11)</td><td>seu aparelho</td><td class="pend">primeiro teste em campo</td></tr>
+    <tr><td>Modo root (chroot) e sistema novo (ROM)</td><td>aparelho com bootloader desbloqueado</td><td class="pend">depende do desbloqueio</td></tr>
+    <tr><td>Monitor virtual no PC com scrcpy real</td><td>seu PC + celular</td><td class="pend">primeiro teste em campo</td></tr>
+    <tr><td>Matriz Windows / macOS / Linux da suíte</td><td>GitHub Actions (<code>ci.yml</code>)</td><td class="pend">roda a cada push</td></tr>
+  </table></div>
+  <div class="card aviso"><b>Honestidade de bancada:</b> o ambiente de nuvem onde a Matula foi escrita não tem celular, Termux nem acesso aos espelhos do Debian. Os testes conferem os planos de comando, a cópia da TOCAIA para um Debian simulado, a ficha do aparelho e o scrcpy em modo simulado. O primeiro teste em aparelho real é a sua instalação no POCO: rode o <b>doutor</b> antes e depois, e anote o resultado no <code>docs/RELATORIO-TESTES.md</code>.</div>
+  <h3>Arquivos da edição</h3>
+  <div class="tabela"><table>
+    <tr><td><code>celular/instalar.sh</code></td><td>instalação em um comando, no Termux</td></tr>
+    <tr><td><code>celular/tocaia_celular.py</code></td><td>orquestrador no celular (stdlib): doutor, instalar, desktop, parar, atalhos, dispositivo</td></tr>
+    <tr><td><code>celular/chroot/</code></td><td>entrar e sair do chroot (modo com root)</td></tr>
+    <tr><td><code>celular/rootfs/</code></td><td>o que vai para dentro do Debian: setup do usuário e papel de parede</td></tr>
+    <tr><td><code>celular/atalhos/</code></td><td>botões do Termux:Widget</td></tr>
+    <tr><td><code>celular/pc/tocaia_pc.py</code></td><td>lado do PC (stdlib): checar, preparar, dex, espelhar, parear, conectar, reverter</td></tr>
+    <tr><td><code>celular/pc/TOCAIA-DeX (...)</code></td><td>lançadores de dois cliques para Windows, Mac e Linux</td></tr>
+    <tr><td><code>tools/manifesto</code></td><td>agora inclui a ficha do aparelho, quando existe</td></tr>
+  </table></div>
+</section>
+</main>
+<footer><div class="wrap">TOCAIA OSINT Linux · edição Android "Matula" · DEIVOSINT · código MIT · Termux, Termux:X11, scrcpy e ROMs citadas sob as próprias licenças</div></footer>
+<script>
+document.querySelectorAll('.abas').forEach(function(abas){
+  abas.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    abas.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected','false')});
+    b.setAttribute('aria-selected','true');
+    var sec=abas.parentElement;
+    sec.querySelectorAll('.painel').forEach(function(p){p.classList.toggle('ativo',p.id===b.dataset.alvo)});
+  });
+});
+</script>
+</body>
+</html>

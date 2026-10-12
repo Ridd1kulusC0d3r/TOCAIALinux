@@ -9,6 +9,7 @@ Você vai aprender a usar a TOCAIA em 3 passos. Não precisa saber Linux.
   - Mac: `iniciar.command`
   - Linux: `iniciar.sh`
 - **Não quero instalar nada:** abra o notebook `nuvem/TOCAIA_Colab.ipynb` no Google Colab e aperte o play em cada célula.
+- **Quero no meu celular Android:** siga o [COMECE-AQUI-CELULAR.md](COMECE-AQUI-CELULAR.md). Dá para usar na tela do celular, no PC ou na TV.
 - **Quero a distro completa, com tela bonita:** baixe a ISO na aba *Releases* do GitHub, grave num pendrive com o balenaEtcher ou o Rufus e dê boot por ele.
 
 ## Passo 2 — Conheça o `trem`

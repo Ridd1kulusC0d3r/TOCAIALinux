@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=TOCAIA papel de parede
+Comment=Aplica o papel de parede da TOCAIA em qualquer tela (celular, PC ou TV)
+Exec=tocaia-papel-de-parede
+OnlyShowIn=XFCE;
+NoDisplay=true

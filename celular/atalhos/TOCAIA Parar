@@ -1,0 +1,5 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# Atalho do Termux:Widget (um toque na tela inicial). Gerado por tocaia_celular.py atalhos.
+python "@TOCAIA@/tocaia_celular.py" parar
+[ -e /system/bin/su ] || [ -e /debug_ramdisk/su ] || [ -e /data/adb/ksu/bin/su ] && python "@TOCAIA@/tocaia_celular.py" parar --root
+true

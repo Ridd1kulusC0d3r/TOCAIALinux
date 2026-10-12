@@ -1,0 +1,11 @@
+#!/bin/sh
+# Põe o papel de parede da TOCAIA em todos os monitores que o Xfce criou.
+# O nome do monitor muda entre Termux:X11, PC e TV, então não dá para fixar
+# no arquivo de configuração: a gente pergunta ao Xfce quais existem.
+IMG=/usr/share/backgrounds/tocaia/tocaia.svg
+[ -f "$IMG" ] || exit 0
+sleep 2
+for prop in $(xfconf-query -c xfce4-desktop -l 2>/dev/null | grep 'last-image$'); do
+  xfconf-query -c xfce4-desktop -p "$prop" -s "$IMG"
+  xfconf-query -c xfce4-desktop -p "${prop%last-image}image-style" -s 5 2>/dev/null || true
+done

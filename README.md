@@ -4,7 +4,7 @@ Distro de OSINT leve e universal, com o menu organizado pelas **fases do método
 
 > Fonte aberta, sem invadir, sem enganar, sem assediar. A distro serve para investigação ética e defesa.
 
-## Uma receita, cinco formas de usar
+## Uma receita, seis formas de usar
 
 | Variante | Base | Tamanho | Onde roda | Como |
 |---|---|---|---|---|
@@ -13,6 +13,7 @@ Distro de OSINT leve e universal, com o menu organizado pelas **fases do método
 | **WSL** | Alpine | dezenas de MB | Windows sem VM | `sh container/exportar-wsl.sh` + `wsl --import` |
 | **Codespaces** | Debian (devcontainer) | — | navegador | botão "Code → Codespaces" no GitHub |
 | **Colab** | Ubuntu do Google | — | navegador | `nuvem/TOCAIA_Colab.ipynb` |
+| **Celular "Matula"** | Debian 13 + Xfce no Termux (proot ou chroot) | ~1,5 GB | Android 10+ ARM64; tela no celular, PC ou TV | [COMECE-AQUI-CELULAR.md](COMECE-AQUI-CELULAR.md) |
 
 ## Em 60 segundos (só precisa de Python 3.10+)
 
@@ -58,6 +59,7 @@ iso/                  live-build (Debian trixie), hook, pacotes, gerador do menu
 tema/                 paleta.json + gerador de GTK, terminal, login e wallpaper
 wargames/             cenários, demo sintética, scripts do laboratório Wazuh
 nuvem/                notebook do Colab
+celular/              edição Android "Matula": modo DeX com Termux:X11, scrcpy e Miracast
 .devcontainer/        Codespaces
 testes/               25 testes, stdlib
 docs/                 manual ilustrado (manual.html), projetos, relatório de testes
@@ -67,6 +69,7 @@ docs/                 manual ilustrado (manual.html), projetos, relatório de te
 
 - **[COMECE-AQUI.md](COMECE-AQUI.md)** — o primeiro passo, sem jargão
 - **[docs/manual.html](docs/manual.html)** — manual ilustrado (abra no navegador)
+- **[COMECE-AQUI-CELULAR.md](COMECE-AQUI-CELULAR.md)**, **[docs/CELULAR.md](docs/CELULAR.md)** e **[docs/manual-celular.html](docs/manual-celular.html)** — a TOCAIA no Android
 - **[wargames/README.md](wargames/README.md)** — regras do war game
 - **[docs/RELATORIO-TESTES.md](docs/RELATORIO-TESTES.md)** — o que foi testado e onde
 
