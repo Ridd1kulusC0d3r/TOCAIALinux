@@ -24,7 +24,8 @@ Parrot, nasce em português, e traz **cadeia de custódia do ferramental** embut
 
 | Edição | Para quê | Peso | Precisa |
 |---|---|---|---|
-| ☁️ **Colab** | testar sem instalar | zero | navegador — [`nuvem/colab`](nuvem/colab/) |
+| ☁️ **Colab (otimizado)** | usar OSINT sem instalar | zero | navegador — [`nuvem/colab`](nuvem/colab/) |
+| ☁️ **Colab (desktop)** | ver a cara do sistema no navegador | zero | navegador — [`nuvem/colab`](nuvem/colab/) |
 | ☁️ **Codespaces** | mexer no código | zero | GitHub — [`.devcontainer`](.devcontainer/) |
 | 🐳 **Container / WSL** | uso diário, leve (amd64+arm64) | dezenas de MB | Docker/WSL — [`edicoes/alpine`](edicoes/alpine/) |
 | 📱 **Termux** | no celular (Poco X6 Pro, ARM64) | dezenas de MB | Android — [`edicoes/termux`](edicoes/termux/) |
