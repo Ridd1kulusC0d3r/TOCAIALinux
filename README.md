@@ -9,6 +9,9 @@ organizada pelas **fases da investigação** — não por tipo de ferramenta.
 
 **leia o padrão · ouça o silêncio · posicione-se e espere**
 
+[![Colab otimizado](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Ridd1kulusC0d3r/TOCAIALinux/blob/main/nuvem/colab/TOCAIA_OSINT_Linux.ipynb)
+[![Colab desktop](https://img.shields.io/badge/Colab-desktop%20(ver%20a%20cara)-5EE6C4?logo=googlecolab&logoColor=black)](https://colab.research.google.com/github/Ridd1kulusC0d3r/TOCAIALinux/blob/main/nuvem/colab/TOCAIA_Colab_Desktop.ipynb)
+
 </div>
 
 ---
