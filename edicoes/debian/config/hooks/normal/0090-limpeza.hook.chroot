@@ -1,0 +1,10 @@
+#!/bin/sh
+# Enxuga a imagem: caches de apt, docs volumosas e locales que não usamos.
+set -e
+
+apt-get clean
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* || true
+rm -rf /usr/share/doc/* || true
+find /usr/share/locale -maxdepth 1 -type d ! -name 'pt_BR*' ! -name 'pt*' \
+     ! -name 'en*' ! -name 'C' ! -name 'locale.alias' -exec rm -rf {} + 2>/dev/null || true
+find / -name '__pycache__' -type d -prune -exec rm -rf {} + 2>/dev/null || true

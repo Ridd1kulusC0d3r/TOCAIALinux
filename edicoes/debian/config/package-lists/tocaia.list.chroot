@@ -1,0 +1,70 @@
+# =============================================================================
+# Pacotes da TOCAIA OSINT Linux. Filosofia: leve. Xfce enxuto + o essencial de
+# OSINT que vale vir pré-instalado; o resto entra sob demanda pelo `trem`.
+# =============================================================================
+
+## --- núcleo do sistema live ---
+live-boot
+live-config
+live-config-systemd
+linux-image-amd64
+firmware-linux-free
+
+## --- Xfce mínimo (sem a tarefa cheia, que puxa coisa demais) ---
+xorg
+xserver-xorg-video-all
+xserver-xorg-input-all
+xfce4-session
+xfwm4
+xfdesktop4
+xfce4-panel
+xfce4-settings
+xfce4-terminal
+xfce4-whiskermenu-plugin
+thunar
+thunar-archive-plugin
+xfce4-notifyd
+xfce4-screenshooter
+tumbler
+lightdm
+lightdm-gtk-greeter
+network-manager-gnome
+dbus-x11
+policykit-1
+xdg-utils
+papirus-icon-theme
+fonts-inter
+fonts-jetbrains-mono
+fonts-dejavu-core
+fonts-noto-color-emoji
+
+## --- base de trabalho ---
+python3
+python3-venv
+python3-pip
+git
+ca-certificates
+curl
+wget
+jq
+less
+nano
+unzip
+p7zip-full
+firefox-esr
+
+## --- OSINT que vale pré-instalar (passivo e leve) ---
+whois
+dnsutils
+libimage-exiftool-perl
+mat2
+tor
+torbrowser-launcher
+keepassxc
+
+## --- utilidades do live ---
+sudo
+rsync
+htop
+console-setup
+task-brazilian-portuguese

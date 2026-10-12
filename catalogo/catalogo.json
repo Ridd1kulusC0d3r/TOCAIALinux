@@ -1,0 +1,292 @@
+{
+  "versao": 1,
+  "fases": {
+    "tracar": {
+      "letra": "T",
+      "nome": "Traçar",
+      "lema": "Trace o padrão de vida.",
+      "explica": "Ritmo, horários, locais, dispositivos, círculos. O hábito é uma coordenada."
+    },
+    "observar": {
+      "letra": "O",
+      "nome": "Observar",
+      "lema": "Observe sem nunca tocar.",
+      "explica": "Coleta 100% passiva e OPSEC do analista. Curtir, seguir ou contatar destrói a tocaia."
+    },
+    "cercar": {
+      "letra": "C",
+      "nome": "Cercar",
+      "lema": "Cerque o nó inescapável.",
+      "explica": "Pivotagem por seletores (username, e-mail, telefone, domínio) e grafo de vínculos."
+    },
+    "aguardar": {
+      "letra": "A",
+      "nome": "Aguardar",
+      "lema": "Aguarde no ponto inevitável.",
+      "explica": "Vigília e tripwires: alertas que disparam quando o alvo passa pelo nó."
+    },
+    "interpretar": {
+      "letra": "I",
+      "nome": "Interpretar",
+      "lema": "Interprete o vazio.",
+      "explica": "Linha de base, desvio, silêncio e arquivo: a ausência também é dado."
+    },
+    "atribuir": {
+      "letra": "A",
+      "nome": "Atribuir",
+      "lema": "Atribua com confiança.",
+      "explica": "Conclusão com grau rotulado (A/M/B), cadeia de custódia e base legal."
+    }
+  },
+  "ferramentas": {
+    "relogio": {
+      "fase": "tracar",
+      "tipo": "pyz",
+      "arquivo": "relogio.pyz",
+      "fonte": "relogio",
+      "desc": "o relógio do alvo é um mapa: heatmap hora×dia, fuso provável, picos e silêncios",
+      "origem": "propria",
+      "autor": "DEIVOSINT",
+      "licenca": "MIT",
+      "status": "pronta",
+      "edicoes": ["debian", "alpine", "nuvem"],
+      "uso": "trem relogio casos/demo-bx7/postagens.csv --html relatorio.html"
+    },
+    "rastro": {
+      "fase": "interpretar",
+      "tipo": "git",
+      "desc": "arqueologia de username via Internet Archive: existiu? desde quando? foi apagado?",
+      "origem": "propria",
+      "autor": "DEIVOSINT",
+      "status": "planejada",
+      "nota": "integrar quando o repositório público tiver um ponto de entrada (ex.: rastro.py)"
+    },
+    "sosia": {
+      "fase": "aguardar",
+      "tipo": "git",
+      "desc": "radar de perfis imitadores: variantes homóglifas e typos de um handle",
+      "origem": "propria",
+      "autor": "DEIVOSINT",
+      "status": "planejada",
+      "nota": "integrar quando o repositório público tiver um ponto de entrada"
+    },
+    "prisma": {
+      "fase": "cercar",
+      "tipo": "git",
+      "desc": "runner unificado stdlib (dorks, crt.sh, RDAP, Wayback, HIBP...) com grafo de vínculos",
+      "origem": "propria",
+      "autor": "DEIVOSINT",
+      "status": "planejada"
+    },
+    "vincula": {
+      "fase": "cercar",
+      "tipo": "git",
+      "repo": "https://github.com/Ridd1kulusC0d3r/VINCULA",
+      "desc": "mapa de vínculos a partir de reportagens, registros oficiais e celulares",
+      "origem": "propria",
+      "autor": "DEIVOSINT",
+      "licenca": "MIT",
+      "status": "planejada",
+      "nota": "falta só definir o campo 'entrada' (script principal) para virar 'pronta'"
+    },
+    "fio": {
+      "fase": "cercar",
+      "tipo": "git",
+      "desc": "F.I.O. Lab — fontes, identificadores e origens (telefones e registros públicos BR)",
+      "origem": "propria",
+      "autor": "DEIVOSINT",
+      "status": "planejada"
+    },
+    "passeltr": {
+      "fase": "observar",
+      "tipo": "git",
+      "desc": "coleta passiva com cadeia de custódia criptográfica",
+      "origem": "propria",
+      "autor": "DEIVOSINT",
+      "status": "planejada"
+    },
+    "manifesto": {
+      "fase": "atribuir",
+      "tipo": "interno",
+      "comando": "manifesto",
+      "desc": "manifesto do ferramental (hashes e versões) para citar no relatório",
+      "origem": "propria",
+      "autor": "DEIVOSINT",
+      "licenca": "MIT",
+      "status": "pronta",
+      "edicoes": ["debian", "alpine", "nuvem"],
+      "uso": "trem manifesto --saida manifesto.json"
+    },
+    "etica": {
+      "fase": "observar",
+      "tipo": "interno",
+      "comando": "etica",
+      "desc": "regras de engajamento: fonte pública, zero interação, LGPD",
+      "origem": "propria",
+      "autor": "DEIVOSINT",
+      "licenca": "MIT",
+      "status": "pronta",
+      "edicoes": ["debian", "alpine", "nuvem"],
+      "uso": "trem etica"
+    },
+    "sherlock": {
+      "fase": "cercar",
+      "tipo": "pip",
+      "pip": "sherlock-project",
+      "comando": "sherlock",
+      "desc": "procura um username em centenas de redes",
+      "origem": "terceiro",
+      "autor": "Sherlock Project",
+      "licenca": "MIT",
+      "status": "pronta",
+      "edicoes": ["debian", "alpine", "nuvem"],
+      "uso": "trem sherlock fulano123"
+    },
+    "maigret": {
+      "fase": "cercar",
+      "tipo": "pip",
+      "pip": "maigret",
+      "comando": "maigret",
+      "desc": "dossiê de username em milhares de sites, com relatório",
+      "origem": "terceiro",
+      "autor": "soxoj",
+      "licenca": "MIT",
+      "status": "pronta",
+      "edicoes": ["debian", "alpine", "nuvem"],
+      "uso": "trem maigret fulano123 --html"
+    },
+    "holehe": {
+      "fase": "cercar",
+      "tipo": "pip",
+      "pip": "holehe",
+      "comando": "holehe",
+      "desc": "em quais sites um e-mail tem conta (sem alertar o dono)",
+      "origem": "terceiro",
+      "autor": "megadose",
+      "licenca": "GPL-3.0",
+      "status": "pronta",
+      "edicoes": ["debian", "alpine", "nuvem"],
+      "uso": "trem holehe alguem@exemplo.com"
+    },
+    "socialscan": {
+      "fase": "cercar",
+      "tipo": "pip",
+      "pip": "socialscan",
+      "comando": "socialscan",
+      "desc": "checa disponibilidade de username e e-mail em plataformas grandes",
+      "origem": "terceiro",
+      "autor": "iojw",
+      "licenca": "MPL-2.0",
+      "status": "pronta",
+      "edicoes": ["debian", "alpine", "nuvem"],
+      "uso": "trem socialscan fulano123"
+    },
+    "waybackpy": {
+      "fase": "interpretar",
+      "tipo": "pip",
+      "pip": "waybackpy",
+      "comando": "waybackpy",
+      "desc": "o espelho dos outros: snapshots antigos de uma URL no Internet Archive",
+      "origem": "terceiro",
+      "autor": "akamhy",
+      "licenca": "MIT",
+      "status": "pronta",
+      "edicoes": ["debian", "alpine", "nuvem"],
+      "uso": "trem waybackpy --url exemplo.com --oldest"
+    },
+    "exiftool": {
+      "fase": "observar",
+      "tipo": "sistema",
+      "comando": "exiftool",
+      "apt": "libimage-exiftool-perl",
+      "apk": "exiftool",
+      "desc": "lê metadados de fotos e documentos (o invisível que o alvo deixa escapar)",
+      "origem": "terceiro",
+      "autor": "Phil Harvey",
+      "licenca": "Artistic/GPL",
+      "status": "pronta",
+      "edicoes": ["debian", "alpine"],
+      "uso": "trem exiftool foto.jpg"
+    },
+    "mat2": {
+      "fase": "observar",
+      "tipo": "sistema",
+      "comando": "mat2",
+      "apt": "mat2",
+      "desc": "OPSEC do analista: limpa metadados dos SEUS arquivos antes de compartilhar",
+      "origem": "terceiro",
+      "autor": "jvoisin",
+      "licenca": "LGPL-3.0",
+      "status": "pronta",
+      "edicoes": ["debian"],
+      "uso": "trem mat2 relatorio.pdf"
+    },
+    "whois": {
+      "fase": "cercar",
+      "tipo": "sistema",
+      "comando": "whois",
+      "apt": "whois",
+      "apk": "whois",
+      "desc": "quem registrou um domínio ou bloco de IP",
+      "origem": "terceiro",
+      "autor": "Marco d'Itri",
+      "licenca": "GPL-2.0",
+      "status": "pronta",
+      "edicoes": ["debian", "alpine"],
+      "uso": "trem whois exemplo.com.br"
+    },
+    "dig": {
+      "fase": "cercar",
+      "tipo": "sistema",
+      "comando": "dig",
+      "apt": "bind9-dnsutils",
+      "apk": "bind-tools",
+      "desc": "consultas DNS (MX, TXT, NS) para pivotar infraestrutura",
+      "origem": "terceiro",
+      "autor": "ISC",
+      "licenca": "MPL-2.0",
+      "status": "pronta",
+      "edicoes": ["debian", "alpine"],
+      "uso": "trem dig exemplo.com.br MX +short"
+    },
+    "wayback": {
+      "fase": "interpretar",
+      "tipo": "web",
+      "url": "https://web.archive.org/",
+      "desc": "Internet Archive no navegador: caches e versões apagadas",
+      "origem": "terceiro",
+      "autor": "Internet Archive",
+      "status": "pronta",
+      "edicoes": ["debian", "alpine", "nuvem"]
+    },
+    "osintframework": {
+      "fase": "observar",
+      "tipo": "web",
+      "url": "https://osintframework.com/",
+      "desc": "índice clássico de fontes OSINT por tipo de seletor",
+      "origem": "terceiro",
+      "autor": "Justin Nordine",
+      "status": "pronta",
+      "edicoes": ["debian", "alpine", "nuvem"]
+    },
+    "canarytokens": {
+      "fase": "aguardar",
+      "tipo": "web",
+      "url": "https://canarytokens.org/",
+      "desc": "tripwires: um alerta quando alguém abre o arquivo ou link armado (uso defensivo)",
+      "origem": "terceiro",
+      "autor": "Thinkst",
+      "status": "pronta",
+      "edicoes": ["debian", "alpine", "nuvem"]
+    },
+    "vigia": {
+      "fase": "aguardar",
+      "tipo": "pyz",
+      "desc": "vigília de páginas e feeds públicos: avisa quando o conteúdo muda",
+      "origem": "propria",
+      "autor": "DEIVOSINT",
+      "status": "planejada",
+      "nota": "próxima ferramenta stdlib (urllib + hashlib + agendamento)"
+    }
+  }
+}

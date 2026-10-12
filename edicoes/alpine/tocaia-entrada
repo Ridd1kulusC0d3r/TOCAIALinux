@@ -1,0 +1,8 @@
+#!/bin/bash
+# Ponto de entrada do container TOCAIA.
+#   (sem args) ou --shell  -> abre um shell interativo com a saudação
+#   <ferramenta> [args...]  -> roda `trem <ferramenta> ...` e sai
+if [ "$#" -eq 0 ] || [ "$1" = "--shell" ]; then
+    exec /bin/bash -l
+fi
+exec trem "$@"

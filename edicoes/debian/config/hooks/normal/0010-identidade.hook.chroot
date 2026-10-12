@@ -1,0 +1,46 @@
+#!/bin/sh
+# Identidade do sistema: branding, release, mensagens de terminal.
+set -e
+
+cat > /etc/tocaia-release <<'EOF'
+NOME="TOCAIA OSINT Linux"
+VERSAO="1.0"
+CODINOME="Tropeiro"
+EDICAO=debian
+BASE="Debian trixie"
+PROJETO="https://github.com/Ridd1kulusC0d3r/TOCAIALinux"
+EOF
+
+# os-release: aparece em telas "sobre" e em ferramentas de inventário
+cat > /usr/lib/os-release <<'EOF'
+PRETTY_NAME="TOCAIA OSINT Linux 1.0 (Tropeiro)"
+NAME="TOCAIA OSINT Linux"
+VERSION_ID="1.0"
+VERSION="1.0 (Tropeiro)"
+ID=tocaia
+ID_LIKE=debian
+HOME_URL="https://github.com/Ridd1kulusC0d3r/TOCAIALinux"
+SUPPORT_URL="https://github.com/Ridd1kulusC0d3r/TOCAIALinux"
+EOF
+ln -sf /usr/lib/os-release /etc/os-release
+
+# issue (console) e motd
+cat > /etc/issue <<'EOF'
+
+  TOCAIA OSINT Linux 1.0 "Tropeiro"  \l
+  leia o padrao . ouca o silencio . posicione-se e espere
+
+EOF
+
+cat > /etc/motd <<'EOF'
+
+  ◆ TOCAIA OSINT Linux — uai, sô.
+
+  trem            lista as ferramentas (agrupadas pelas fases da doutrina)
+  trem fases      as 6 fases: Tracar Observar Cercar Aguardar Interpretar Atribuir
+  trem etica      regras de engajamento (leia antes de investigar)
+  trem doutor     checagem de saude do ambiente
+
+  Fonte publica . zero interacao . base legal (LGPD . Marco Civil)
+
+EOF

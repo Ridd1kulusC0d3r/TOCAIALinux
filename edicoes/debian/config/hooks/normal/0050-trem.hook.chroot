@@ -1,0 +1,25 @@
+#!/bin/sh
+# Integra o lançador 'trem': atalhos do menu, saudação no terminal, ética pré-aceita
+# no modo live (o aviso aparece na primeira ferramenta, mas o terminal já saúda).
+set -e
+
+chmod +x /usr/local/bin/trem
+
+# Gera os .desktop do menu (um por ferramenta pronta), categoria = fase
+TOCAIA_HOME=/opt/tocaia trem menu --destino /usr/share/applications || true
+
+# Saudação ao abrir o terminal (para todos os usuários)
+cat > /etc/profile.d/tocaia.sh <<'EOF'
+# TOCAIA: saudação só em shell interativo de terminal
+case $- in *i*)
+  if [ -z "${TOCAIA_SAUDOU:-}" ] && command -v trem >/dev/null; then
+    export TOCAIA_SAUDOU=1
+    trem saudacao 2>/dev/null || true
+  fi
+;; esac
+EOF
+
+# Atalho 'tocaia' como sinônimo amigável de 'trem'
+ln -sf /usr/local/bin/trem /usr/local/bin/tocaia
+
+update-desktop-database /usr/share/applications >/dev/null 2>&1 || true

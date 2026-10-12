@@ -1,0 +1,52 @@
+#!/bin/sh
+# Converte os SVGs do tema em PNG e instala os ícones no tema hicolor.
+# Roda dentro do chroot, que já tem rsvg-convert/inkscape ou librsvg.
+set -e
+
+TC=/usr/share/tocaia
+conv() { # conv entrada.svg saida.png largura altura
+  if command -v rsvg-convert >/dev/null; then
+    rsvg-convert -w "$3" -h "$4" "$1" -o "$2"
+  elif command -v inkscape >/dev/null; then
+    inkscape "$1" -w "$3" -h "$4" -o "$2" >/dev/null 2>&1
+  elif command -v convert >/dev/null; then
+    convert -background none -resize "${3}x${4}" "$1" "$2"
+  else
+    echo "aviso: nenhum conversor de SVG; mantendo PNG pré-gerado se houver" >&2
+  fi
+}
+
+# wallpaper (agora é a arte da onça na espreita, com o wordmark) e login
+[ -f "$TC/wallpaper.svg" ] && conv "$TC/wallpaper.svg" "$TC/wallpaper.png" 1920 1080
+[ -f "$TC/wallpaper-face.svg" ] && conv "$TC/wallpaper-face.svg" "$TC/wallpaper-face.png" 1920 1080
+# login.png normalmente já vem pronto da marca; se só houver o SVG, rasteriza
+[ -f "$TC/login.png" ] || { [ -f "$TC/login.svg" ] && conv "$TC/login.svg" "$TC/login.png" 1920 1080; }
+
+# o losango vetorial fica como ícone alternativo 'tocaia-losango'
+mkdir -p /usr/share/icons/hicolor/scalable/apps
+cp "$TC/logo.svg" /usr/share/icons/hicolor/scalable/apps/tocaia-losango.svg
+for tam in 16 22 24 32 48 64 128 256; do
+  dest="/usr/share/icons/hicolor/${tam}x${tam}/apps"; mkdir -p "$dest"
+  conv "$TC/logo.svg" "$dest/tocaia-losango.png" "$tam" "$tam"
+  # se a face NÃO foi instalada como ícone do app, usa o losango como 'tocaia'
+  [ -f "$dest/tocaia.png" ] || conv "$TC/logo.svg" "$dest/tocaia.png" "$tam" "$tam"
+done
+
+# ícones das fases (scalable basta; o menu referencia tocaia-<fase>)
+for svg in "$TC"/icones/*.svg; do
+  [ -f "$svg" ] || continue
+  nome=$(basename "$svg" .svg)
+  cp "$svg" /usr/share/icons/hicolor/scalable/apps/"$nome".svg
+  for tam in 32 48 64; do
+    dest="/usr/share/icons/hicolor/${tam}x${tam}/apps"; mkdir -p "$dest"
+    conv "$svg" "$dest/$nome.png" "$tam" "$tam"
+  done
+done
+
+gtk-update-icon-cache -f /usr/share/icons/hicolor >/dev/null 2>&1 || true
+update-desktop-database /usr/share/applications >/dev/null 2>&1 || true
+
+# GRUB: instala o tema se o diretório existir
+if [ -d /boot/grub/themes/tocaia ]; then
+  echo 'GRUB_THEME=/boot/grub/themes/tocaia/theme.txt' >> /etc/default/grub || true
+fi

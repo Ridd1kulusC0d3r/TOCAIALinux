@@ -1,0 +1,116 @@
+name: Build — ISO, container e WSL
+
+# Dispara em tags de versão (ex.: v1.0) ou manualmente.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write   # criar release
+  packages: write   # publicar imagem no GHCR
+
+jobs:
+  # ---------------------------------------------------------------- container Alpine + WSL
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Preparar material (pyz, marca, manual)
+        run: |
+          python -m pip install --quiet pillow
+          python3 trem/trem.py validar
+          bash scripts/empacotar.sh
+          python3 assets/gerar_marca.py --destino assets/gerado
+
+      - name: QEMU (multi-arquitetura)
+        uses: docker/setup-qemu-action@v3
+      - name: Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login no GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build e push (amd64 + arm64)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: edicoes/alpine/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/tocaia:latest
+            ghcr.io/${{ github.repository_owner }}/tocaia:1.0
+
+      - name: Exportar rootfs para WSL
+        run: |
+          docker build -f edicoes/alpine/Dockerfile -t tocaia:wsl .
+          cid=$(docker create tocaia:wsl)
+          mkdir -p dist
+          docker export "$cid" | gzip > dist/TOCAIA-WSL.tar.gz
+          docker rm "$cid"
+          ( cd dist && sha256sum TOCAIA-WSL.tar.gz > TOCAIA-WSL.tar.gz.sha256 )
+
+      - name: Guardar o WSL como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: tocaia-wsl
+          path: dist/TOCAIA-WSL.tar.gz*
+
+  # ---------------------------------------------------------------- ISO Debian (live-build)
+  iso:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+      options: --privileged
+    steps:
+      - name: Dependências do live-build
+        run: |
+          apt-get update
+          apt-get install -y live-build git python3 python3-pil rsync \
+                             librsvg2-bin imagemagick ca-certificates xorriso
+
+      - uses: actions/checkout@v4
+
+      - name: Construir a ISO
+        run: |
+          chmod +x edicoes/debian/build.sh
+          edicoes/debian/build.sh
+
+      - name: Guardar a ISO como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: tocaia-iso
+          path: dist/*.iso*
+
+  # ---------------------------------------------------------------- release
+  release:
+    needs: [container, iso]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: artefatos }
+      - name: Publicar release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artefatos/tocaia-iso/*
+            artefatos/tocaia-wsl/*
+          body: |
+            # TOCAIA OSINT Linux ${{ github.ref_name }} "Tropeiro"
+
+            - 💿 **ISO** (Debian + Xfce) — grave num pendrive com o balenaEtcher.
+            - 🐳 **Container** — `docker run --rm -it ghcr.io/${{ github.repository_owner }}/tocaia:latest`
+            - 🪟 **WSL** — baixe o `.tar.gz` e `wsl --import TOCAIA C:\WSL\TOCAIA TOCAIA-WSL.tar.gz`
+
+            Confira os `.sha256`. Comece pelo `COMECE-AQUI.md` e pelo manual em `docs/manual/`.

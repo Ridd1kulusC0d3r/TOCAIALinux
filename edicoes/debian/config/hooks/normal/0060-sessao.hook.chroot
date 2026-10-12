@@ -1,0 +1,28 @@
+#!/bin/sh
+# Sessão gráfica: LightDM com autologin no modo live, Xfce como sessão padrão.
+set -e
+
+mkdir -p /etc/lightdm/lightdm.conf.d
+cat > /etc/lightdm/lightdm.conf.d/20-tocaia.conf <<'EOF'
+[Seat:*]
+greeter-session=lightdm-gtk-greeter
+user-session=xfce
+autologin-user=analista
+autologin-user-timeout=0
+EOF
+
+# garante a sessão Xfce como padrão
+mkdir -p /var/lib/AccountsService/users
+cat > /var/lib/AccountsService/users/analista <<'EOF'
+[User]
+Session=xfce
+XSession=xfce
+SystemAccount=false
+EOF
+
+# NetworkManager cuida da rede no live
+systemctl enable NetworkManager >/dev/null 2>&1 || true
+systemctl enable lightdm >/dev/null 2>&1 || true
+
+# pt-BR como locale padrão
+echo "LANG=pt_BR.UTF-8" > /etc/default/locale || true

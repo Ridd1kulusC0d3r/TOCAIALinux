@@ -1,0 +1,59 @@
+name: CI — testes e verificação
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dependências de geração (só Pillow, para a marca)
+        run: python -m pip install --quiet pillow
+
+      - name: Validar o catálogo
+        run: python3 trem/trem.py validar
+
+      - name: Empacotar as ferramentas (.pyz)
+        run: bash scripts/empacotar.sh
+
+      - name: Gerar a marca (wallpapers, login, ícones, boot)
+        run: python3 assets/gerar_marca.py --destino assets/gerado
+
+      - name: Gerar o tema (smoke)
+        run: python3 tema/gerar_tema.py --destino ./saida-tema
+
+      - name: Testes unitários
+        run: python3 -m unittest discover -s testes -v
+
+      - name: Sintaxe dos scripts de shell
+        run: |
+          for f in $(find . -name '*.sh') edicoes/debian/auto/config \
+                   edicoes/debian/config/hooks/normal/*.hook.chroot; do
+            echo "bash -n $f"; bash -n "$f"
+          done
+
+      - name: shellcheck (não bloqueante)
+        run: |
+          sudo apt-get update && sudo apt-get install -y shellcheck
+          shellcheck -S warning scripts/*.sh edicoes/*/build.sh || true
+
+  manual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checar que o manual não tem placeholders pendentes
+        run: |
+          if grep -R -n "__[A-Z_]\+__" docs/manual/index.html; then
+            echo "Há placeholders não preenchidos no manual"; exit 1
+          fi
+          echo "Manual OK"

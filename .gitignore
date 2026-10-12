@@ -1,0 +1,31 @@
+# gerados
+ferramentas/*.pyz
+assets/gerado/
+opt-tocaia/
+saida-tema/
+dist/
+dist-build.log
+
+# live-build (gerado dentro de edicoes/debian)
+edicoes/debian/.build/
+edicoes/debian/cache/
+edicoes/debian/chroot/
+edicoes/debian/binary/
+edicoes/debian/.stage/
+edicoes/debian/config/binary
+edicoes/debian/config/bootstrap
+edicoes/debian/config/chroot
+edicoes/debian/config/common
+edicoes/debian/config/source
+edicoes/debian/local/
+edicoes/debian/auto/clean
+edicoes/debian/auto/build
+
+# python
+__pycache__/
+*.pyc
+.local/
+
+# ambiente
+*.iso
+*.tar.gz

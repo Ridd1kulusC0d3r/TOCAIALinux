@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=TOCAIA OSINT Linux
+Comment=Abre a TOCAIA em container (precisa do Docker)
+Terminal=true
+Icon=utilities-terminal
+Exec=sh -c 'command -v docker >/dev/null || { echo "Instale o Docker: https://docs.docker.com/engine/install/"; read x; exit; }; mkdir -p "$HOME/TOCAIA-casos"; docker run --rm -it -v "$HOME/TOCAIA-casos:/home/analista/casos" ghcr.io/ridd1kulusc0d3r/tocaia:latest; echo "Pressione Enter para fechar"; read x'
+Categories=Utility;Security;
