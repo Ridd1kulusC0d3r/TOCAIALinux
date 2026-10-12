@@ -20,21 +20,34 @@ Kali, Parrot e afins organizam o menu por tipo de ferramenta ("Information Gathe
 Interpretar · Atribuir. Navegar no menu já ensina a investigar. É mais leve que Kali e
 Parrot, nasce em português, e traz **cadeia de custódia do ferramental** embutida.
 
-## Quatro jeitos de rodar
+## Jeitos de rodar (tamanhos reais, medidos/estimados — sem arredondar para baixo)
 
-| Edição | Para quê | Peso | Precisa |
-|---|---|---|---|
-| ☁️ **Colab (otimizado)** | usar OSINT sem instalar | zero | navegador — [`nuvem/colab`](nuvem/colab/) |
-| ☁️ **Colab (desktop)** | ver a cara do sistema no navegador | zero | navegador — [`nuvem/colab`](nuvem/colab/) |
-| ☁️ **Codespaces** | mexer no código | zero | GitHub — [`.devcontainer`](.devcontainer/) |
-| 🐳 **Container / WSL** | uso diário, leve (amd64+arm64) | dezenas de MB | Docker/WSL — [`edicoes/alpine`](edicoes/alpine/) |
-| 📱 **Termux** | no celular (Poco X6 Pro, ARM64) | dezenas de MB | Android — [`edicoes/termux`](edicoes/termux/) |
-| 🍓 **Raspberry Pi** | baremetal ARM de verdade | cartão SD | Pi 3/4/5 — [`edicoes/raspberry`](edicoes/raspberry/) |
-| 💿 **ISO Debian + Xfce** | a distro completa (amd64/arm64) | ~1–1,5 GB | pendrive/VM — [`edicoes/debian`](edicoes/debian/) |
+| Edição | Base | Onde roda | Peso real | Como |
+|---|---|---|---|---|
+| ☁️ **Colab (otimizado)** | Ubuntu do Colab | navegador | **0** local | [`nuvem/colab/TOCAIA_OSINT_Linux.ipynb`](nuvem/colab/) |
+| ☁️ **Colab (desktop)** | Ubuntu do Colab + Xfce/noVNC | navegador | **0** local | [`nuvem/colab/TOCAIA_Colab_Desktop.ipynb`](nuvem/colab/) |
+| ☁️ **Codespaces** | devcontainer Debian | navegador | **0** local | botão *Code → Codespaces* |
+| 🐳 **Container** | Alpine | Linux/Mac/Win/ARM64 | imagem **~60 MB** comprimida | `docker run --rm -it ghcr.io/ridd1kulusc0d3r/tocaia` |
+| 🪟 **WSL** | Alpine | Windows sem VM | tar **~70 MB** | `wsl --import` do `.tar.gz` |
+| 📱 **Termux (nativo)** | Android ARM64 | Poco X6 Pro etc. | **poucos MB** (só o `trem`) | [`edicoes/termux`](edicoes/termux/) |
+| 📱 **Termux + proot (opcional)** | Debian+Xfce por proot | celular, GUI por VNC | **~1,5 GB** · lento | [`edicoes/termux`](edicoes/termux/) |
+| 🍓 **Raspberry Pi** | Pi OS 64-bit + `trem` | Pi 3/4/5 (baremetal) | cartão SD | [`edicoes/raspberry`](edicoes/raspberry/) |
+| 💿 **ISO live** | Debian 13 + Xfce | qualquer PC (amd64/arm64) | **~1,3 GB** (não "centenas de MB") | [`edicoes/debian`](edicoes/debian/) |
 
-> **ARM / Poco X6 Pro:** baremetal no X6 Pro não é viável (SoC sem porte, Mali, verified
-> boot); o caminho real é o **Termux** (nativo). Baremetal ARM de verdade = **Raspberry Pi**.
-> Detalhes em [`docs/ARM.md`](docs/ARM.md).
+> **Precisão que importa:** o **Termux nativo** (o caminho real no Poco X6 Pro) pesa **poucos MB** —
+> os ~1,5 GB são só se você instalar o Debian+Xfce por **proot** por dentro (opcional, lento, GUI por
+> VNC; `chroot` exige root). A **ISO** com Xfce + Firefox + Tor fica em **~1,3 GB**, não "centenas de MB".
+> Baremetal no X6 Pro **não** é viável; baremetal ARM de verdade = **Raspberry Pi**. Veja [`docs/ARM.md`](docs/ARM.md).
+
+## Onde baixar a ISO
+
+O repositório git **não** guarda a ISO (limite de 100 MB/arquivo). Ela é publicada em:
+
+- **GitHub Releases** (origem, até 2 GB/arquivo, ao lado do código) — gerada pelo CI a cada tag `v*`.
+- **Internet Archive** (espelho permanente + **torrent**) — mirror e `.torrent` automáticos.
+- Cada download vem com o **SHA-256** (e o `.torrent`); confira antes de gravar.
+
+Plano completo de hospedagem (R2, SourceForge, OSUOSL, custos) em [`docs/HOSPEDAGEM.md`](docs/HOSPEDAGEM.md).
 
 > **Comece por [`COMECE-AQUI.md`](COMECE-AQUI.md)** e pelo **Manual Ilustrado**
 > ([`docs/manual/index.html`](docs/manual/index.html) — abra no navegador).
